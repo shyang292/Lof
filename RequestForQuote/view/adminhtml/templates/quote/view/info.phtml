@@ -1,0 +1,362 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Sales\Block\Adminhtml\Order\View\Info */ ?>
+<?php $mageQuote = $block->getMageQuote() ?>
+<?php
+
+$moduleHelper = $block->getModuleHelper();
+$enable_quote_totals = $moduleHelper->getConfig("quote_admin_setting/enable_quote_totals");
+$enable_admin_note = $moduleHelper->getConfig("quote_admin_setting/enable_admin_note");
+$enable_terms = $moduleHelper->getConfig("quote_admin_setting/enable_terms");
+$enable_wtexpect = $moduleHelper->getConfig("quote_admin_setting/enable_wtexpect");
+$enable_break_line = $moduleHelper->getConfig("quote_admin_setting/enable_break_line");
+$customer = $mageQuote->getCustomer(); 
+$orderAdminDate = $block->formatDate(
+    $block->getOrderAdminDate($mageQuote->getCreatedAt()),
+    \IntlDateFormatter::MEDIUM,
+    true
+    );
+
+$quote = $block->getQuote();
+
+$firstname = $mageQuote->getData('customer_firstname');
+$lastname = $mageQuote->getData('customer_lastname');
+
+if(!$firstname && $quote->getData("first_name")) {
+    $firstname = $quote->getData("first_name");
+}
+if(!$lastname && $quote->getData("last_name")) {
+    $lastname = $quote->getData("last_name");
+}
+$store = $block->getStore($mageQuote->getStoreId());
+
+$shipping_address = $this->getMageQuoteAddress();
+$billing_address = $this->getMageQuoteBillingAddress();
+
+$quote_data = $block->getQuoteFieldData();
+$quote_remind = $quote->getRemind();
+$quote_remind = ($quote_remind != '0000-00-00 00:00:00')?$quote_remind:'';
+$orderStoreDate = $block->formatDate(
+    $mageQuote->getCreatedAt(),
+    \IntlDateFormatter::MEDIUM,
+    true,
+    $block->getTimezoneForStore($store)
+    );
+    ?>
+    <section class="admin__page-section order-view-account-information">
+        <div class="admin__page-section-title">
+            <span class="title"><?php echo __('Quote & Account Information') ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="admin__page-section-item order-information">
+                <?php /* Quote Information */?>
+                <div class="admin__page-section-item-title">
+                    <span class="title">
+                        <?php echo __('Quote # %1', $quote->getIncrementId()); ?>
+                    </span>
+                </div>
+                <div class="admin__page-section-item-content">
+                    <table class="admin__table-secondary order-information-table">
+                        <tr>
+                            <th><?php echo __('Quote Date') ?></th>
+                            <td><?php echo $orderAdminDate ?></td>
+                        </tr>
+                        <?php if ($orderAdminDate != $orderStoreDate):?>
+                            <tr>
+                                <th><?php echo __(
+                                    'Quote Date (%1)',
+                                    $block->getTimezoneForStore($mageQuote->getStore())
+                                    ) ?></th>
+                                    <td><?php echo $orderStoreDate ?></td>
+                                </tr>
+                            <?php endif;?>
+                            <tr>
+                                <th><?php echo __('Quote Status') ?></th>
+                                <td>
+                                    <span id="order_status">
+                                        <?php $availableStatuses = $quote->getAvailableStatuses(); ?>
+                                        <select name="status" class="select admin__control-select">
+                                            <?php foreach ($availableStatuses as $k => $v) { ?>
+                                            <option value="<?php echo $k ?>" <?php if ($k==$quote->getStatus()) { ?>selected<?php } ?>><?php echo $v ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </span>
+                                </td>
+                            </tr>
+                            <?php echo $block->getChildHtml(); ?>
+                            <?php if ($block->isSingleStoreMode() == false):?>
+                                <tr>
+                                    <th><?php echo __('Purchased From') ?></th>
+                                    <td><?php echo $block->getOrderStoreName() ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($mageQuote->getRelationChildId()): ?>
+                                <tr>
+                                    <th><?php echo __('Link to the New Order') ?></th>
+                                    <td><a href="<?php echo $block->getViewUrl($mageQuote->getRelationChildId()) ?>">
+                                        <?php echo $mageQuote->getRelationChildRealId() ?>
+                                    </a></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($mageQuote->getRelationParentId()): ?>
+                                <tr>
+                                    <th><?php echo __('Link to the Previous Order') ?></th>
+                                    <td><a href="<?php echo $block->getViewUrl($mageQuote->getRelationParentId()) ?>">
+                                        <?php echo $mageQuote->getRelationParentRealId() ?>
+                                    </a></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($mageQuote->getRemoteIp()): ?>
+                                <tr>
+                                    <th><?php echo __('Placed from IP') ?></th>
+                                    <td><?php echo $mageQuote->getRemoteIp(); echo($mageQuote->getXForwardedFor()) ? ' (' . $block->escapeHtml($mageQuote->getXForwardedFor()) . ')' : ''; ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <tr>
+                                <th><?php echo __('Expiry Date') ?></th>
+                                <td>
+                                    <input id="quote-expiry" type="text" name="expiry" class="input-text admin__control-text" value="<?php echo $quote->getExpiry()?$block->formatDate($quote->getExpiry(), \IntlDateFormatter::SHORT):'' ?>"/>
+                                    <script>
+                                        require([
+                                            "jquery",
+                                            "mage/calendar"
+                                            ], function($){
+                                                $("#quote-expiry").calendar({
+                                                    dateFormat:"<?php echo $block->getDateFormat() ?>",
+                                                    buttonText:"<?php echo __('Select Date') ?>"
+                                                });
+                                            });
+                                        </script>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="admin__page-section-item order-account-information">
+                        <?php /* Account Information */?>
+                        <div class="admin__page-section-item-title">
+                            <span class="title"><?php echo __('Account Information') ?></span>
+                            <div class="actions"><?php echo $block->getAccountEditLink()?></div>
+                        </div>
+                        <div class="admin__page-section-item-content">
+                            <table class="admin__table-secondary order-account-information-table">
+                                <tr>
+                                    <th><?php echo __('Customer Name') ?></th>
+                                    <td>
+                                        <?php if ($_customerUrl = $block->getCustomerViewUrl()) : ?>
+                                            <a href="<?php echo $_customerUrl ?>" target="_blank">
+                                                <span><?php echo $block->escapeHtml($mageQuote->getData('customer_firstname') . ' ' . $mageQuote->getData('customer_lastname')) ?></span>
+                                            </a>
+                                        <?php else: ?>
+                                            <?php echo $block->escapeHtml($firstname . ' ' . $lastname) ?>
+                                        <?php endif; ?>
+                                        <input type="hidden" name="mage_quote[customer_firstname]" value="<?php echo $firstname; ?>"/>
+                                        <input type="hidden" name="mage_quote[customer_lastname]" value="<?php echo $lastname; ?>"/>
+                                    </td>
+                                </tr>
+                                <?php if(isset($quote_data['email']) && $quote_data['email']){ ?>
+                                <tr>
+                                    <th><?php echo __('Email') ?></th>
+                                    <td><a href="mailto:<?php echo $block->escapeHtml($quote_data['email']) ?>"><?php echo $block->escapeHtml($quote_data['email']) ?></a></td>
+                                </tr>
+                                <?php } elseif($mageQuote->getCustomerEmail()) { ?>
+                                <tr>
+                                    <th><?php echo __('Email') ?></th>
+                                    <td><a href="mailto:<?php echo $block->escapeHtml($mageQuote->getCustomerEmail()) ?>"><?php echo $block->escapeHtml($mageQuote->getCustomerEmail()) ?></a></td>
+                                </tr>
+                                <?php } ?>
+                                <?php if ($_groupName = $block->getCustomerGroupName()) : ?>
+                                    <tr>
+                                        <th><?php echo __('Customer Group') ?></th>
+                                        <td><?php echo $_groupName ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if (isset($quote_data['company']) && $quote_data['company']) : ?>
+                                    <tr>
+                                        <th><?php echo __('Company') ?></th>
+                                        <td><?php echo $quote_data['company'] ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if (isset($quote_data['telephone']) && $quote_data['telephone']) : ?>
+                                    <tr>
+                                        <th><?php echo __('Telephone') ?></th>
+                                        <td><?php echo $quote_data['telephone'] ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if (isset($quote_data['address']) && $quote_data['address']) : ?>
+                                    <tr>
+                                        <th><?php echo __('Address') ?></th>
+                                        <td><?php echo $quote_data['address'] ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if (isset($quote_data['tax_id']) && $quote_data['tax_id']) : ?>
+                                    <tr>
+                                        <th><?php echo __('Tax Code') ?></th>
+                                        <td><?php echo $quote_data['tax_id'] ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php foreach ($block->getCustomerAccountData() as $data):?>
+                                    <tr>
+                                        <th><?php echo $data['label'] ?></th>
+                                        <td><?php echo $data['value'] ?></td>
+                                    </tr>
+                                <?php endforeach;?>
+                                <?php if ($questions = $block->getQuestions()) : ?>
+                                    <?php foreach ($questions as $question):?>
+                                    <tr>
+                                        <th><?php echo $question['label']; ?></th>
+                                        <td><?php echo $question['value'] ?></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                <?php endif; ?>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="admin__page-section-item order-information quote-comment">
+            <?php if ($mageQuote->getCustomerNote()) { ?>
+            
+                <div class="admin__field field-comment ">
+                    <label for="quote-comment" class="admin__field-label"><span><?php echo __("Quote Comments"); ?></span></label>
+                    <div class="admin__field-control">
+                        <textarea name="mage_quote[customer_note]" id="quote-customer_note" class="admin__control-textarea" style="width:100%" cols="20"><?php echo strip_tags($mageQuote->getCustomerNote()); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if($enable_admin_note) { ?>
+            
+                <div class="admin__field field-comment ">
+                    <label for="quote-admin-note" class="admin__field-label"><span><?php echo __("Aim"); ?></span></label>
+                    <div class="admin__field-control">
+                        <textarea name="admin_note" id="quote-admin-note" class="admin__control-textarea" style="width:100%" cols="20"><?php echo strip_tags($quote->getAdminNote()); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if($enable_terms) { ?>
+                <div class="admin__field field-comment ">
+                    <label for="quote-terms" class="admin__field-label"><span><?php echo __("Deliverables"); ?></span></label>
+                    <div class="admin__field-control">
+                        <textarea name="terms" id="quote-terms" class="admin__control-textarea" style="width:100%" cols="20"><?php echo strip_tags($quote->getTerms()); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if($enable_wtexpect) { ?>
+                <div class="admin__field field-comment ">
+                    <label for="quote-wtexpect" class="admin__field-label"><span><?php echo __("Lead Time"); ?></span></label>
+                    <div class="admin__field-control">
+                        <textarea name="wtexpect" id="quote-wtexpect" class="admin__control-textarea" style="width:100%" cols="20"><?php echo strip_tags($quote->getWtexpect()); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if($enable_break_line) { ?>
+                <div class="admin__field field-comment ">
+                    <label for="quote-break-line" class="admin__field-label"><span><?php echo __("Notes"); ?></span></label>
+                    <div class="admin__field-control">
+                        <textarea name="break_line" id="quote-break-line" class="admin__control-textarea" style="width:100%" cols="20"><?php echo strip_tags($quote->getBreakLine()); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+<!--            --><?php //if($enable_break_line) { ?>
+<!--                <div class="admin__field field-comment ">-->
+<!--                    <label for="quote-break-line" class="admin__field-label"><span>--><?php //echo __("Internal Notes"); ?><!--</span></label>-->
+<!--                    <div class="admin__field-control">-->
+<!--                        <textarea name="break_line" id="quote-break-line" class="admin__control-textarea" style="width:100%" cols="20">--><?php //echo strip_tags($quote->getBreakLine()); ?><!--</textarea>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            --><?php //} ?>
+<!--            --><?php //if($enable_break_line) { ?>
+<!--                <div class="admin__field field-comment ">-->
+<!--                    <label for="quote-break-line" class="admin__field-label"><span>--><?php //echo __("Ship Size"); ?><!--</span></label>-->
+<!--                    <div class="admin__field-control">-->
+<!--                        <textarea name="break_line" id="quote-break-line" class="admin__control-textarea" style="width:100%" cols="20">--><?php //echo strip_tags($quote->getBreakLine()); ?><!--</textarea>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            --><?php //} ?>
+        </div>
+            <!-- View address information at here -->
+<?php
+//$rfqHelper                = $this->helper('Lof\RequestForQuote\Helper\Data');
+//$currentcySymbol          = $rfqHelper->getCurrentCurrencySymbol();
+$currencySymbol          = $this->getCurrencySymbol();             
+$quote = $mageQuote;
+ 
+$grand_total = $mageQuote->getData('grand_total');
+$subtotal = $mageQuote->getData('subtotal');
+$subtotal_with_discount = $mageQuote->getData('subtotal_with_discount');
+$discount = $subtotal - $subtotal_with_discount;
+$qty = $mageQuote->getData('items_qty');
+$coupon_code = $quote->getData('coupon_code');
+$shipping_amount = $quote->getData('shipping_amount');
+$shipping_amount = $shipping_amount?(float)$shipping_amount:'';
+$shipping_note = $quote->getData('shipping_note');
+$shipping_note = $shipping_note?$shipping_note:'';
+$rate_id    = $quote->getData('rate_id');
+$tax_amount = $quote->getData('tax_amount');
+$tax_amount = $tax_amount?(float)$tax_amount:'';
+
+$tax_amount2 = $tax_amount?$tax_amount:($grand_total - $subtotal_with_discount);
+$tax = $currencySymbol . $tax_amount2;  
+if($enable_quote_totals) {
+?>
+<!--<div class="admin__page-section-item order-totals">-->
+<!---->
+<!--    <div class="admin__page-section-item-title">-->
+<!--        <span class="title">--><?php //echo __('Quote Totals');?><!--</span>-->
+<!--    </div>-->
+<!--    <table class="data-table admin__table-secondary order-subtotal-table">-->
+<!--        <tbody>-->
+<!--            <tr class="totals sub">-->
+<!--                <th  class="mark" scope="row">--><?php //echo __('Quote Subtotal');?><!--</th>-->
+<!--                <td class="amount">-->
+<!--                    <span class="price" data-th="Quote Subtotal">--><?php //echo $currencySymbol . $subtotal; ?><!--</span>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--          -->
+<!--            <tr class="totals discount">-->
+<!--                <th class="mark" scope="row">-->
+<!--                    <span class="title" >--><?php //echo __('Discount');?><!--</span>-->
+<!--                </th>-->
+<!--                <td class="amount">-->
+<!--                    <span class="price">---><?php //echo $currencySymbol . $discount; ?><!--</span>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!---->
+<!--            <tr class="totals discount-code hidden hide" style="display: none">-->
+<!--                <th class="mark" scope="row">-->
+<!--                    <span class="title" >--><?php //echo __('Coupon Code');?><!--</span>-->
+<!--                </th>-->
+<!--                <td class="amount">-->
+<!--                    <span><input id="quote-couponcode" type="text" name="coupon_code" class="input-text admin__control-text" style="width:100%" value="--><?php //echo $coupon_code; ?><!--"/></span>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!---->
+<!--            <tr class="totals-tax">-->
+<!--                <th  class="mark" scope="row">--><?php //echo __('Tax');?><!--</th>-->
+<!--                <td  class="amount" data-th="Tax">-->
+<!--                        <span>--><?php //echo $currencySymbol; ?><!----><?php //echo $tax_amount2; ?><!--</span>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--          -->
+<!--            <tr class="grand totals">-->
+<!--                <th class="mark" scope="row">-->
+<!--                    <strong>--><?php //echo __('Quote Total');?><!--</strong>-->
+<!--                </th>-->
+<!--                <td  class="amount" data-th="Quote Total">-->
+<!--                    <strong><span class="price" id="grand_total" data-currency="--><?php //echo $currencySymbol; ?><!--" data-amount="--><?php //echo $grand_total; ?><!--">--><?php //echo $currencySymbol . $grand_total; ?><!--</span></strong>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!---->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+<?php } ?>

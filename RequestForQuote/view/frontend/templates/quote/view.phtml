@@ -1,0 +1,46 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote\View */
+use Magento\Framework\App\Action\Action;
+$quote = $block->getRfqQuote();
+$mageQuote = $block->getQuote();
+$helper = $this->helper('\Lof\RequestForQuote\Helper\Data');
+?>
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+
+<?php if ($customerNote = $mageQuote->getCustomerNote()) { ?>
+<p><b><strong><?php echo __('Comment: '); ?></strong></b><?php echo strip_tags($mageQuote->getCustomerNote()); ?></p>
+<?php } ?>
+<div class="quote-items">
+	<div class="cart table-wrapper<?php echo $mergedCells == 2 ? ' detailed' : ''; ?>">
+		<table id="shopping-cart-table"
+		class="cart items data table"
+		data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+		"updateCartActionContainer": "#update_cart_action_container"}}'>
+		<caption role="heading" aria-level="2" class="table-caption"><?php echo __('Shopping Cart Items') ?></caption>
+		<thead>
+			<tr>
+				<th class="col item" scope="col"><span><?php echo __('Item') ?></span></th>
+				<th class="col item" scope="col"><span><?php echo __('SKU') ?></span></th>
+				<th class="col price" scope="col"><span><?php echo __('Price') ?></span></th>
+				<th class="col qty" scope="col"><span><?php echo __('Qty') ?></span></th>
+			</tr>
+		</thead>
+		<?php foreach ($block->getItems() as $_item): ?>
+			<?php echo $block->getItemHtml($_item) ?>
+		<?php endforeach ?>
+	</table>
+</div>
+</div>
+<?php if($quote->getStatus() == \Lof\RequestForQuote\Model\Quote::STATE_REVIEWED && !$helper->isExpired($quote)) { ?>
+	<?php $postParams = $block->getMoveToShoppingcart($quote); ?>
+	<form action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+		<input type="hidden" name="quote" value="<?php /* @escapeNotVerified */ echo $quote->getId(); ?>">
+		<input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+		<?php echo $block->getBlockHtml('formkey')?>
+		<div class="primary">
+			<button type="submit" title="<?php echo __('Move to Shopping Cart'); ?>" class="action primary">
+				<span><?php echo __('Move to Shopping Cart'); ?></span>
+			</button>
+		</div>
+	</form>
+	<?php } ?>

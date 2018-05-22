@@ -1,0 +1,17 @@
+<script type="text/x-magento-init">
+{
+    "[data-role=toquote-form], .form.map.checkout": {
+        "catalogAddToQuote": {}
+    }
+}
+</script>
+
+<script>
+require(['jquery'], function($) {
+	$('.rfq-addnote').click(function() {
+		var $parent = $(this).parent();
+		$parent.find('textarea').toggle();
+		$(this).hide();
+	});
+})
+</script>

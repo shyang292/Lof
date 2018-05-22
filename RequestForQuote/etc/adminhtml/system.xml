@@ -1,0 +1,388 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_RequestForQuote
+ * @copyright  Copyright (c) 2017 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+	<system>
+		<tab id="landofcoder" translate="label" sortOrder="400">
+			<label><![CDATA[<a href="http://landofcoder.com" target="_BLANK" title=""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports">landofcoder.com</a>]]></label>
+		</tab>
+		<section id="requestforquote" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Request for Quote</label>
+			<tab>landofcoder</tab>
+			<resource>Lof_RequestForQuote::configurations</resource>
+			<group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Setting</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="disable_addtocart" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Disabled Addtocart</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+                <field id="disable_qty" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disabled Qty Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Qty input on product detail page.]]></comment>
+                </field>
+				<field id="enable_addtoquote" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled Addtoquote for all product</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment><![CDATA[Enabled/ Disable addto quote button for all product were not set value for product quote attribute.]]></comment>
+				</field>
+				<field id="quote_id_prefix" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Id Prefix</label>
+                    <comment><![CDATA[Input prefix for quote number id. For example: <strong>LOF-</strong> It will generate Increment ID as LOF-10000000001]]></comment>
+                </field>
+                <field id="digits_number" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Digits Number</label>
+                    <comment><![CDATA[Input quote digits number. Default: 1000000000]]></comment>
+                </field>
+				<field id="icon" translate="label comment" type="image" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Icon</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+					<upload_dir config="system/filesystem/media" scope_info="1">lof/requestforquote</upload_dir>
+					<base_url type="media" scope_info="1">lof/requestforquote</base_url>
+				</field>
+				<field id="sender_email_identity" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Sender</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+				</field>
+				<field id="bcc" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send Quote Email Copy to</label>
+					<comment>Comma-separated.</comment>
+				</field>
+				<field id="send_quote_request_notification_to" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send Quote e-mail notification to</label>
+					<comment>Comma-separated.</comment>
+				</field>
+				<field id="customer_groups" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Customer Groups</label>
+					<source_model>\Lof\RequestForQuote\Model\Config\Source\CustomerGroups</source_model>
+				</field>
+				<field id="enable_price" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Price On Quote Page and Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Price on Quote Page frontend.</comment>
+                </field>
+                <field id="enable_edit_price" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Edit Price On Quote Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Allow/Dont Allow Customer Edit Price on Quote Page frontend.</comment>
+                    <depends><field id="enable_price">1</field></depends>
+                </field>
+                <field id="disable_shoppingcart" translate="label comment" type="select" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Move To Shopping Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Disable/Enable move to shopping cart button on quote page.</comment>
+                </field>
+			</group>
+			<group id="sidebar" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote Sidebar</label>
+                <field id="display" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Shopping Cart Sidebar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="count" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Display Recently Added Item(s)</label>
+                    <depends><field id="display">1</field></depends>
+                </field>
+            </group>
+			<group id="email_templates" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Email Templates</label>
+				<field id="new_quote" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>New Quote</label>
+					<source_model>Lof\RequestForQuote\Model\Config\Source\EmailTemplate\NewQuote</source_model>
+				</field>
+				<field id="accept_quote" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Accept Quote</label>
+					<source_model>Lof\RequestForQuote\Model\Config\Source\EmailTemplate\AcceptQuote</source_model>
+				</field>
+				<field id="quote_cancelled" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Quote Cancelled</label>
+					<source_model>Lof\RequestForQuote\Model\Config\Source\EmailTemplate\QuoteCancelled</source_model>
+				</field>
+				<field id="quote_reviewed" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Quote Reviewed</label>
+					<source_model>Lof\RequestForQuote\Model\Config\Source\EmailTemplate\QuoteReviewed</source_model>
+				</field>
+				<field id="quote_expired" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Quote Expired</label>
+					<source_model>Lof\RequestForQuote\Model\Config\Source\EmailTemplate\QuoteExpired</source_model>
+				</field>
+				<field id="quote_change_expired_date" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Change Expired Date</label>
+					<source_model>Lof\RequestForQuote\Model\Config\Source\EmailTemplate\ChangeExpiredDate</source_model>
+				</field>
+			</group>
+			<group id="quote_item" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Quote Item Setting</label>
+				<field id="expiry_day" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Set Expiry days</label>
+					<comment>Set number days after the quote created date. Default: 10</comment>
+				</field>
+			</group>
+			<group id="quote_sidebar" translate="label" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Quote Sidebar Setting</label>
+				<field id="enable_firstname" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled First Name</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled First Name on Quote Page frontend.</comment>
+                </field>
+                <field id="require_firstname" translate="label" type="select" sortOrder="81" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required First Name Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required First Name Field.]]></comment>
+                </field>
+                <field id="enable_lastname" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Last Name</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Last Name on Quote Page frontend.</comment>
+                </field>
+                <field id="require_lastname" translate="label" type="select" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Last Name Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Last Name Field.]]></comment>
+                </field>
+                <field id="enable_phone" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Phone Number</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Phone Number on Quote Page frontend.</comment>
+                </field>
+                <field id="require_phone" translate="label" type="select" sortOrder="101" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Phone Number Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Phone Number Field.]]></comment>
+                </field>
+                <field id="enable_company" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Company</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Company on Quote Page frontend.</comment>
+                </field>
+                <field id="require_company" translate="label" type="select" sortOrder="111" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Company Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Company Field.]]></comment>
+                </field>
+                <field id="enable_street_address" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Street Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Street Address on Quote Page frontend.</comment>
+                </field>
+                <field id="require_street_address" translate="label" type="select" sortOrder="121" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Street Address Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Street Address Field.]]></comment>
+                </field>
+                <field id="enable_country" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Country</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Country Field on Quote Page frontend.</comment>
+                </field>
+                <field id="allow_countries" translate="label" type="multiselect" sortOrder="131" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allow Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="default_country" translate="label" type="select" sortOrder="132" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Default Country</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="require_country" translate="label" type="select" sortOrder="133" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Country Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Country Field.]]></comment>
+                </field>
+                <field id="enable_region" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Region</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Region on Quote Page frontend.</comment>
+                </field>
+                <field id="require_region" translate="label" type="select" sortOrder="141" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Region Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Region Field.]]></comment>
+                </field>
+                <field id="enable_city" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled City</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled City on Quote Page frontend.</comment>
+                </field>
+                <field id="require_city" translate="label" type="select" sortOrder="151" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required City Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required City Field.]]></comment>
+                </field>
+                <field id="enable_postcode" translate="label" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Postal Code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Postal Code on Quote Page frontend.</comment>
+                </field>
+                <field id="require_postcode" translate="label" type="select" sortOrder="161" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Postal Code Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Postal Code Field.]]></comment>
+                </field>
+                <field id="enable_taxid" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Tax Id</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Tax Id on Quote Page frontend.</comment>
+                </field>
+                <field id="require_taxid" translate="label" type="select" sortOrder="171" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Tax Id Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Tax Id Field.]]></comment>
+                </field>
+                <field id="enable_extrafield" translate="label" type="select" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Extra Fields</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled/Disabled Extra Fields Child Block On Sidbar Block On Quote Page.</comment>
+                </field>
+                <field id="question_1" translate="label comment" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Question Field Label 1</label>
+                    <comment><![CDATA[Input the field label of question 1. For example: What do you want?. Empty to disable it.]]></comment>
+                </field>
+                <field id="question_required_1" translate="label" type="select" sortOrder="191" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Question Field 1</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Question Field.]]></comment>
+                </field>
+                <field id="question_2" translate="label comment" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Question Field Label 2</label>
+                    <comment><![CDATA[Input the field label of question 2. For example: What do you want?. Empty to disable it.]]></comment>
+                </field>
+
+                <field id="question_required_2" translate="label" type="select" sortOrder="201" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Question Field 2</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Question Field.]]></comment>
+                </field>
+
+                <field id="question_3" translate="label comment" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Question Field Label 3</label>
+                    <comment><![CDATA[Input the field label of question 3. For example: What do you want?. Empty to disable it.]]></comment>
+                </field>
+
+                <field id="question_required_3" translate="label" type="select" sortOrder="211" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Question Field 3</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Question Field.]]></comment>
+                </field>
+                
+                <field id="question_4" translate="label comment" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Question Field Label 4</label>
+                    <comment><![CDATA[Input the field label of question 4. For example: What do you want?. Empty to disable it.]]></comment>
+                </field>
+
+                <field id="question_required_4" translate="label" type="select" sortOrder="221" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Question Field 4</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Question Field.]]></comment>
+                </field>
+                
+                <field id="question_5" translate="label comment" type="text" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Question Field Label 5</label>
+                    <comment><![CDATA[Input the field label of question 5. For example: What do you want?. Empty to disable it.]]></comment>
+                </field>
+
+                <field id="question_required_5" translate="label" type="select" sortOrder="231" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Required Question Field 5</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enabled/Disabled Required Question Field.]]></comment>
+                </field>
+			</group>
+            <group id="quote_admin_setting" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote View Admin Setting</label>
+                <field id="enable_quote_totals" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Quote Total</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_admin_note" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Admin Note</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_terms" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Quote Terms</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_wtexpect" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Quote What To Expect</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_break_line" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Quote Break Line</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+		</section>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="quote_shipping" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Lof Request For Quote Shipping</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="price" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Price</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="handling_type" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Calculate Handling Fee</label>
+                    <source_model>Magento\Shipping\Model\Source\HandlingType</source_model>
+                </field>
+                <field id="handling_fee" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Handling Fee</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+ 
+        </section>
+	</system>
+</config>

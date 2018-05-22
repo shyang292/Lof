@@ -1,0 +1,318 @@
+.product-item .rfq-form .toquote {
+    font-size: 1.3rem;
+    border-radius: 0;
+    line-height: 1;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    white-space: nowrap;
+    background: none;
+    color: #1979c3;
+}
+.product-addtoquote-button {
+    margin-top: 10px;
+    border-radius: 0px;
+    padding: 7px 6px;
+}
+.product-item .rfq-form .toquote:hover {
+    background: #1979c3;
+    color: #FFF;
+}
+
+.columns .product-items .rfq-form {
+    margin-top: 3px;
+}
+
+#rfq-confirm h1 {
+    text-align: center;
+    padding: 20px 5px;
+    margin: 0;
+    background: #1979c3;
+    color: #FFF;
+}
+
+#rfq-confirm #messageBox {
+    text-align: center;
+    padding: 10px 15px;
+    margin-top: 10px;
+}
+
+#rfq-confirm p {
+    margin-bottom: 1.5rem;
+}
+
+#rfq-confirm #confirmButtons {
+    padding: 5px 0 20px;
+    text-align: center;
+    clear: both;
+}
+
+#rfq-confirm #confirmButtons .action.primary {
+    max-width: 180px;
+    margin: 0 auto;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/** MINI QUOTE **/
+.miniquote-wrapper .action.showquote:before, .miniquote-wrapper .action.showquote.active:before {
+    content: "\e612";
+}
+
+.miniquote-wrapper .product.list .label {
+    width: 20%;
+    display: inline-block;
+}
+
+.miniquote-wrapper .product.list .values {
+    display: inline-block;
+    width: 75%;
+}
+
+/** PRODUCT PAGE **/
+#quote-sidebar .sidebar-title {
+    padding-bottom: 10px;
+    color: #333;
+    font-weight: 300;
+    font-size: 2.6rem;
+}
+
+#quote-sidebar .block .title {
+    padding-bottom: 10px;
+    color: #333;
+    font-weight: 300;
+    font-size: 2.6rem;
+    border-top: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+#quote-sidebar .block .title:after {
+    top: 10px;
+    line-height: inherit;
+}
+
+#quote-sidebar .fieldset {
+    margin-bottom: 0;
+}
+
+#product-addtoquote-button {
+    background: none;
+    color: #006bb4;
+}
+
+#product-addtoquote-button:hover {
+    background: #006bb4;
+    color: #FFF;
+}
+
+#quote-sidebar .block .label {
+    font-weight: 400;
+}
+
+#quote-sidebar .block .content {
+    margin: 30px 0 0;
+    padding: 0;
+}
+
+#quote-sidebar .action.primary {
+    line-height: 2.2rem;
+    padding: 14px 17px;
+    font-size: 1.8rem;
+    width: 100%;
+    margin-top: 30px;
+}
+
+#quote-sidebar .customer-details .title:after {
+    display: none;
+}
+
+#quote-sidebar .customer-details .content {
+    display: block;
+}
+
+#quote-sidebar .field.street .control input:last-child {
+    margin-top: 10px;
+}
+
+@media all and (min-width: 768px),print {
+    .quotation-quote-index .cart-container .form-cart {
+        width: 70%;
+    }
+
+    .quotation-quote-index .cart-container .cart-summary {
+        min-width: 30%;
+    }
+
+    .quotation-quote-index .authentication-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .quotation-quote-index .cart-summary .block>.title:after {
+        top: 35px;
+        right: 20px;
+        left: auto;
+        font-size: 2rem;
+    }
+}
+
+.quotation-quote-index .cart-container .cart-summary {
+    padding: 20px;
+    z-index: 9;
+}
+
+@media all and (min-width: 768px),print {
+    #quote-sidebar .col1, #quote-sidebar .col2 {
+        width: 48%;
+        display: inline-block;
+        float: left;
+    }
+
+    #quote-sidebar .col2 {
+        float: right
+    }
+}
+
+.quotation-quote-index #shopping-cart-table .input-text.customprice {
+    height: 36px;
+    margin-top: -7px;
+    text-align: center;
+    width: 100px;
+}
+
+.quotation-quote-index #shopping-cart-table .cart-price .price {
+    font-weight: normal;
+    margin-top: 5px;
+    display: block;
+    font-size: 14px;
+}
+
+.rfq-addnote {
+    font-weight: 600;
+    color: #1979c3;
+    cursor: pointer;
+}
+
+.rfq-addnote:hover {
+    text-decoration: underline;
+}
+
+.rfq-description {
+    display: none;
+}
+
+.quotation-quote-view .cart.table-wrapper {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    margin-top: -1px;
+    padding: 25px;
+}
+
+#shopping-cart-table .cart:last-child {
+    border-bottom: 0;
+}
+
+.quotation-quote-view .quote-expiry {
+    text-transform: uppercase;
+    margin-top: 6px;
+    padding: 5px 10px;
+    display: inline-block;
+    vertical-align: top;
+    border: 2px solid transparent;
+    border-radius: 3px;
+}
+
+.quotation-quote-view .column.main .primary .action {
+    line-height: 2.2rem;
+    padding: 14px 17px;
+    font-size: 1.8rem;
+    width: 300px;
+    margin-top: 30px;
+}
+
+.miniquote-wrapper.has-icon .showquote:before, .miniquote-wrapper.has-icon .action.showquote.active:before {
+    display: none;
+}
+
+.quotation-quote-view #shopping-cart-table .product-item-name > span {
+    display: none;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .quotation-quote-index #shopping-cart-table .input-text.customprice {
+        padding: 0;
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .quotation-quote-view .cart.table-wrapper {
+        padding: 0;
+    }
+
+    .quotation-quote-view #shopping-cart-table tr {
+        display: block;
+    }
+
+    .quotation-quote-view .cart.table-wrapper .item .col {
+        padding: 0;
+        width: 100%;
+        text-align: left;
+        display: block;
+    }
+
+    .quotation-quote-view .cart.table-wrapper .product-item-photo {
+        position: static;
+    }
+
+    .quotation-quote-view .table-wrapper #shopping-cart-table.table>tbody>tr td:before, .quotation-quote-view .table-wrapper #shopping-cart-table.table>tbody>tr th:before {
+        padding-right: 10px;
+        content: attr(data-th) ': ';
+        display: inline-block;
+        color: #111;
+        font-weight: 700
+    }
+
+    .quotation-quote-view .cart.table-wrapper .item .col.qty, .quotation-quote-view .cart.table-wrapper .item .col.sku {
+        text-align: right;
+    }
+
+    .quotation-quote-view .cart.table-wrapper .item .col.price span, .quotation-quote-view .cart.table-wrapper .item .col .qty {
+        display: inline-block;
+    }
+
+    .quotation-quote-view .cart.table-wrapper {
+        border: 0;
+    }
+
+    .quote-items {
+        border: 1px solid #ccc;
+        margin-bottom: 40px;
+        padding: 10px;
+    }
+
+    .quotation-quote-view .cart.table-wrapper .cart>.item {
+        padding: 10px 0;
+    }
+
+    .quotation-quote-view .product-image-container {
+        padding-top: 10px;
+    }
+
+    .quotation-quote-view .quote-items {
+        margin-bottom: 0;
+    }
+
+    .quotation-quote-view #shopping-cart-table .product-item-name > span {
+        display: block;
+        font-size: initial;
+        font-weight: bold;
+        font-size: 14px;
+        display: inline-block;
+        padding-right: 10px;
+    }
+
+    .quotation-quote-view .column.main .primary .action {
+        width: 100%
+    }
+}

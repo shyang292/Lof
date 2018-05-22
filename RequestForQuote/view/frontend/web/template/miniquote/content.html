@@ -1,0 +1,111 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="block-title">
+    <strong>
+        <span class="text"><!-- ko i18n: 'My Cart' --><!-- /ko --></span>
+        <span
+            class="qty empty"
+            data-bind="css: { empty: !!getQuoteParam('summary_count') == false },
+                       attr: { title: $t('Items in Cart') }">
+            <!-- ko text: getQuoteParam('summary_count') --><!-- /ko -->
+        </span>
+    </strong>
+</div>
+
+<div class="block-content">
+    <button type="button"
+            id="btn-miniquote-close"
+            class="action close"
+            data-action="close"
+            data-bind="attr: { title: $t('Close') }">
+        <span><!-- ko i18n: 'Close' --><!-- /ko --></span>
+    </button>
+
+    <!-- ko if: getQuoteParam('summary_count') -->
+        <div class="items-total">
+            <span class="count"><!-- ko text: getQuoteParam('summary_count') --><!-- /ko --></span>
+            <!-- ko if: getQuoteParam('summary_count') == 1 -->
+                <!-- ko i18n: 'item' --><!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: getQuoteParam('summary_count') > 1 -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+
+        <!-- ko if: getQuoteParam('possible_onepage_checkout') -->
+            <!-- ko foreach: getRegion('subtotalContainer') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+
+        <!-- ko foreach: getRegion('extraInfo') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+
+        <!-- ko if: getQuoteParam('possible_onepage_checkout') -->
+        <div class="actions">
+            <div class="primary">
+                <button
+                        id="top-quote-btn-sumit"
+                        type="button"
+                        class="action primary"
+                        data-bind="attr: {title: $t('View Quote Request')}">
+                    <!-- ko i18n: 'View Quote Request' --><!-- /ko -->
+                </button>
+                <div data-bind="html: getQuoteParam('extra_actions')"></div>
+            </div>
+        </div>
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: getQuoteParam('summary_count') -->
+    <strong class="subtitle"><!-- ko i18n: 'Recently added item(s)' --><!-- /ko --></strong>
+    <div data-action="scroll" class="miniquote-items-wrapper">
+        <ol id="mini-quote" class="miniquote-items" data-bind="foreach: { data: getQuoteParam('items'), as: 'item' }">
+            <!-- ko foreach: $parent.getRegion($parent.getItemRenderer(item.product_type)) -->
+                <!-- ko template: {name: getTemplate(), data: item, afterRender: function() {$parents[1].initSidebar()}} --><!-- /ko -->
+            <!-- /ko -->
+        </ol>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko ifnot: getQuoteParam('summary_count') -->
+        <strong class="subtitle empty" data-bind="visible: closeSidebar()">
+            <!-- ko i18n: 'You have no items in your quote.' --><!-- /ko -->
+        </strong>
+        <!-- ko if: getQuoteParam('cart_empty_message') -->
+            <p class="miniquote empty text"><!-- ko text: getQuoteParam('cart_empty_message') --><!-- /ko --></p>
+
+            <div class="actions">
+                <div class="secondary">
+                    <a class="action viewcart" data-bind="attr: {href: submitQuoteUrl}">
+                        <span><!-- ko text: $t('View and edit quote request') --><!-- /ko --></span>
+                    </a>
+                </div>
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: getQuoteParam('summary_count') -->
+    <div class="actions">
+        <div class="secondary">
+            <a class="action viewcart" data-bind="attr: {href: submitQuoteUrl}">
+                <span><!-- ko i18n: 'View and edit quote request' --><!-- /ko --></span>
+            </a>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div id="miniquote-widgets" class="miniquote-widgets">
+        <!-- ko foreach: getRegion('promotion') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>
+<!-- ko foreach: getRegion('sign-in-popup') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

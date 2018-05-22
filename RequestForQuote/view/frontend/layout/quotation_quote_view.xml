@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_RequestForQuote
+ * @copyright  Copyright (c) 2017 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="customer_account"/>
+	<update handle="checkout_cart_item_renderers"/>
+	<body>
+		<referenceContainer name="page.main.title">
+			<block class="Lof\RequestForQuote\Block\Quote\Info" name="quote.status" template="quote/view/status.phtml"/>
+			<block class="Lof\RequestForQuote\Block\Quote\Info" name="quote.date" template="quote/view/date.phtml"/>
+			<!-- <block class="Lof\RequestForQuote\Block\Quote\Info" name="quote.info.buttons" template="quote/view/buttons.phtml"/> -->
+		</referenceContainer>
+		<referenceContainer name="content">
+			<block class="Lof\RequestForQuote\Block\Quote\View" name="checkout.cart.form" as="cart-items" template="quote/view.phtml" after="cart.summary">
+				<block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+				<block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
+			</block>
+		</referenceContainer>
+	</body>
+</page>

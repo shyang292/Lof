@@ -1,0 +1,8 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote */
+?>
+<div class="cart-empty">
+    <p><?php /* @escapeNotVerified */ echo __('You have no items in your quote.') ?></p>
+    <p><?php /* @escapeNotVerified */ echo __('Click <a href="%1">here</a> to continue shopping.',
+            $block->escapeUrl($block->getContinueShoppingUrl())) ?></p>
+</div>

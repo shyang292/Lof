@@ -1,0 +1,21 @@
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+use Magento\Framework\App\Action\Action;
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php if ($_product && $_product->getId()) { ?>
+<?php $_quoteHelper = $this->helper('Lof\RequestForQuote\Helper\Product'); ?>
+<?php $postParams = $_quoteHelper->getAddToCartPostParams($_product); ?>
+<div class="rfq-form">
+    <form data-role="toquote-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+        <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+        <input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <button type="submit"
+        title="<?php echo $block->escapeHtml(__('Add to Quote')); ?>"
+        class="action toquote primary">
+        <span><?php /* @escapeNotVerified */ echo __('Add to Quote') ?></span>
+    </button>
+</form>
+</div>
+<?php } ?>

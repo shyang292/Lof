@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+$quote = $block->getQuote();
+?>
+<div class="order-date">
+    <?php /* @escapeNotVerified */ echo __('<span class="label">Quote Date:</span> %1', '<date>' . $block->formatDate($quote->getCreatedAt(), \IntlDateFormatter::LONG) . '</date>') ?>
+</div>

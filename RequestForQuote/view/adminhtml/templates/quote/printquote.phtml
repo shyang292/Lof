@@ -1,0 +1,781 @@
+<?php
+    $arr = $this->getRequest()->getParams();
+<<<<<<< HEAD
+//    $quoteId = $arr['entity_id'];
+    $param = $arr['entity_id'];
+    if(strpos($param, '&') !== false){
+        $quoteId = substr($param, 0, strpos($param, '&'));
+    }else{
+        $quoteId = $param;
+    }
+=======
+    $quoteId = $arr['entity_id'];
+>>>>>>> d71a872ac3998594146475285259015d253e15bc
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $connection = $resource->getConnection();
+    $tableName = $resource->getTableName('lof_rfq_quote');
+    $sql = "select * from " . $tableName . " where entity_id = " . $quoteId;
+    $results = $connection->fetchAll($sql);
+    $customerId = $results[0]['customer_id'];
+    $quoteId = $results[0]['quote_id'];
+    $quoteIncrementId = $results[0]['increment_id'];
+<<<<<<< HEAD
+//    $date=date_create("2013-03-15");
+    //get account Rep information
+    $adminUser = $block->getCurrentUser();
+//    echo $adminUser->getUsername();
+    //leadtime, aim, deliverable, notes
+    //$results[0]['lead_time'];   $results[0]['aim'];    $results[0]['deliverables'];     $results[0]['notes'];
+    //get request item information
+    $sql2 = "select * from quote_item where quote_id = ".$quoteId." and (recommend=0 or recommend is null) ";
+    $quoteItemArr = $connection->fetchAll($sql2);
+
+    //get quote customer  information
+    $sql3 = "select * from customer_entity 
+            where entity_id =".$customerId;
+    $customerInfoArr = $connection->fetchAll($sql3);
+
+    //get quote customer add information
+    $sql4 = "select * from customer_address_entity where entity_id=".$customerInfoArr[0]['default_shipping'];
+    $customerAddArr = $connection->fetchAll($sql4);
+
+    //get quote customer country information
+
+    //get discount information
+
+    //get qoute information
+    $sql5 = "select * from quote where entity_id = ".$quoteId;
+    $quoteArr = $connection->fetchAll($sql5);
+
+    //get recommend item information
+    $sql6 = "select * from quote_item where quote_id = ".$quoteId." and recommend=1";
+    $recommendItemArr = $connection->fetchAll($sql6);
+
+    //get root path
+    $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+    $rootPath = $storeManager->getStore()->getBaseUrl();
+    $logoPath = $rootPath.'pub/media/logo-water-print.png';
+?>
+<div id="quoteTable">
+			   <table width='800px' border='0' cellpadding='0' cellspacing='0' class='smal' style='color:#000;'>
+			   	 <tr>
+				 	<td width='450px' style='border-bottom:2px #000 solid; '>
+						<table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+							<tr>
+							  <td height='16px'><img src="<?=$logoPath?>" width='215px' height='60px' border='0' alt='ABM Logo' style='margin:10px 0px 10px 10px;'  /></td>
+							</tr>
+							<tr>
+							<tr>
+							  <td height='10px'>&nbsp;</td>
+							</tr>
+							  <td height='16px'><span style='font-size:22px; font-weight:bold;'>Price Quotation # <?=$quoteIncrementId?></span></td>
+							</tr>
+							<tr>
+							  <td height='16px' colspan='2'>&nbsp;</td>
+							</tr>
+						</table>
+					</td>
+				 	<td style='border-bottom:2px #000 solid; padding-bottom:0px;'>
+						<table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+							<tr>
+							  <td height='16px'>Applied Biological Materials Inc.</td>
+							</tr>
+							<tr>
+							  <td height='16px'>Suite #1-3671 Viking Way</td>
+							</tr>
+							<tr>
+							  <td height='16px'>Richmond, BC, CANADA &nbsp; V6V 2J5</td>
+							</tr>
+							<tr>
+							  <td height='16px'>Tel: 604-247-2416</td>
+							</tr>
+							<tr>
+							  <td height='16px'>Fax: 604-247-2414</td>
+							</tr>
+							<tr>
+							  <td height='16px'>www.abmgood.com</td>
+							</tr>
+						</table>
+					</td>
+				 </tr>
+				 <tr>
+				 	<td width='450px' style='border-bottom:2px #000 solid;'>
+                        <table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+                            <tr>
+                                <td height='16px' colspan='2'>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height='16px' colspan='2'>
+                                    <strong>
+                                        <?php
+                                            if(empty($customerAddArr[0]['middlename']))
+                                                echo $customerAddArr[0]['firstname'].' '.$customerAddArr[0]['lastname'];
+                                            else
+                                                echo $customerAddArr[0]['firstname'].' '.($customerAddArr[0]['middlename']).' '.$customerAddArr[0]['lastname'];
+                                        ?>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height='16px' colspan='2'><?=$customerAddArr[0]['company']?></td>
+                            </tr>
+                            <tr>
+                                <td height='16px' colspan='2'><?=$customerAddArr[0]['street']?></td>
+                            </tr>
+                            <tr>
+                                <td height='16px' colspan='2'><?=$customerAddArr[0]['city']?>, <?=$customerAddArr[0]['region']?></td>
+                            </tr>
+                            <tr>
+                                <td height='16px' colspan='2'><?=$block->getCountryname($customerAddArr[0]['country_id'])?> &nbsp; <?=$customerAddArr[0]['postcode']?></td>
+                            </tr>
+                            <tr>
+                                <td height='16px' colspan='2'>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height='16px'><strong>Phone:</strong></td>
+                                <td><?=$customerAddArr[0]['telephone']?></td>
+                            </tr>
+                            <tr>
+                                <td height='16px'><strong>Email:</strong></td>
+                                <td><?=$customerInfoArr[0]['email']?></td>
+                            </tr>
+                            <tr>
+                                <td height='16px' colspan='2'>&nbsp;</td>
+                            </tr>
+                        </table>
+					</td>
+                    <td style="border-bottom:2px #000 solid;">
+						<table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+							<tr>
+							  <td height='16px' colspan='2'>&nbsp;</td>
+							</tr>
+							<tr>
+							  <td height='16px' width='40%'><strong>Quote Date:</strong></td>
+							  <td width='60%'><?=substr($results[0]['created_at'], 0, 10)?></td>
+							</tr>
+							<tr>
+							  <td height='16px'><strong>Valid Until:</strong></td>
+							  <td><?=substr($results[0]['expiry'], 0, 10)?></td>
+							</tr>
+							<tr>
+							  <td height='16px'>&nbsp;</td>
+							</tr>
+							<tr>
+							  <td height='16px' valign='top'><strong>Est Lead Time:</strong></td>
+							  <td>lead time</td>
+							</tr>
+							<tr>
+							  <td height='16px'>&nbsp;</td>
+							</tr>
+                            <tr>
+                              <td height='16px'><strong>Account Rep:</strong></td>
+                              <td><?=$adminUser->getUsername()?></td>
+                            </tr>
+                            <tr>
+                                <td height='16px'>&nbsp;</td>
+                            </tr>
+						</table>
+                    </td>
+			     </tr>
+                   <tr>
+                       <td width='450px' colspan='2'>
+                           <table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+                               <?php if(!empty($results[0]['aim'])): ?>
+                                   <tr>
+                                       <td height='16px' colspan='2'>&nbsp;</td>
+                                   </tr>
+                                   <tr>
+                                       <td height='16px' width='15%' valign='top'><strong>Project Aim:</strong></td>
+                                       <td height='16px' width='85%'><?=$results[0]['aim']?></td>
+                                   </tr>
+                               <?php endif;?>
+                           </table>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td colspan='2'>
+                           <br/>
+                           <table width='100%'  border='0' cellpadding='2px' cellspacing='0' class='content' style='border:0px solid #000;'>
+                               <tr>
+                                   <th width='2%' style='text-align:center; background-color:#000; color:#FFF; padding-left: 10px;'>Qty</th>
+                                   <th width='12%' style='text-align:center; background-color:#000; color:#FFF;' height='40'>SKU</th>
+                                   <th width='13%' style='text-align:center; background-color:#000; color:#FFF;'>Unit</th>
+                                   <th width='35%' style='text-align:center; background-color:#000; color:#FFF;'>ProductName</th>
+                                   <th width='10%' style='text-align:center; background-color:#000; color:#FFF;'>List Price</th>
+<!--                                   <th width='9%' style='text-align:center; background-color:#000; color:#FFF;'>Discount</th>-->
+                                   <th width='13%' style='text-align:center; background-color:#000; color:#FFF;'>Sale Price</th>
+                                   <th width='13%'  style='text-align:center; background-color:#000; color:#FFF; padding-left: 3px'>Total Cost</th>
+                               </tr>
+                               <tr>
+                                   <td colspan='6'><i>Requested Item(s):</i></td>
+                               </tr>
+                               <?php foreach ($quoteItemArr as $quoteItem): ?>
+                                   <tr height='30px'>
+                                       <td style='text-align:center;' valign='top'><?=number_format($quoteItem['qty'])?></td>
+                                       <td style='text-align:center;' valign='top'>
+                                           <?php
+                                                echo $quoteItem['sku']."<br>";
+                                                try{
+                                                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                                    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+                                                    $connection = $resource->getConnection();
+                                                    $tableName = $resource->getTableName('quote_item_option');
+                                                    $sql = "select * from " . $tableName . " where item_id = " . $quoteItem['item_id'];
+                                                    $results = $connection->fetchAll($sql);
+                                                    if(count($results) > 1 && strpos($results[0]['value'], 'option') !== false){
+                                                        //custom option product
+                                                        $dropdownNum = 0; $dropdownOptionIdArray = array();$dropdownOptionValueArray = array();
+                                                        foreach ($results as $result){
+                                                            if($result['code'] == 'option_ids'){
+                                                                $dropdownOptionIdArray = explode(',', $result['value']);
+                                                                $dropdownNum = count($dropdownOptionIdArray);
+                                                            }
+                                                        }
+                                                        foreach ($dropdownOptionIdArray as $dropdownOptionId){
+                                                            $tmp = "option_".$dropdownOptionId;
+                                                            $sql2 = "select * from " . $tableName . " where item_id = " . $quoteItem['item_id'] . " and code = '" .$tmp ."'";
+                                                            $results = $connection->fetchAll($sql2);
+                                                            //id:$dropdownOptionId    value: $results[0]['value'];
+                                                            //find id title in "catalog_product_option_title"
+                                                            $sql3 = "select * from catalog_product_option_title where option_id = ".$dropdownOptionId;
+                                                            $results1 = $connection->fetchAll($sql3);
+                                                            //$results1['title']
+                                                            //find value in "catalog_product_option_type_title"
+                                                            $sql4 = "select * from catalog_product_option_type_title where option_type_id = ".$results[0]['value'];
+                                                            $results2 = $connection->fetchAll($sql4);
+                                                            //$results2['title']
+                                                            $dropdownOptionValueArray[$results1[0]['title']]=$results2[0]['title'];
+                                                        }
+                                                        //                    var_dump($dropdownOptionValueArray);
+//                                                   echo "<p class='custom-options'></p>";
+                                                        echo "<ul style='list-style-type: none;'>";
+                                                        foreach ($dropdownOptionValueArray as $index=>$val){
+                                                            echo "<li><strong>".$index."</strong>: ".$val."</li>";
+                                                        }
+                                                        echo "</ul>";
+                                                    }
+                                                }
+                                                catch (Exception $e){
+
+                                                }
+
+                                           ?>
+                                       </td>
+                                       <td style='text-align:center;' valign='top'>
+                                           <?php
+                                                $product = $objectManager->create('Magento\Catalog\Model\Product')->load($quoteItem['product_id']);
+                                               if (!empty($product->getCustomAttribute('unit_quantity'))) {
+                                                   echo $product->getCustomAttribute('unit_quantity')->getValue();
+                                               }else{
+                                                   echo "N/A";
+                                               }
+                                           ?>
+                                       </td>
+                                       <td style='text-align:center;' valign='top'><?=$quoteItem['name']?></td>
+                                       <td style='text-align:center;' valign='top'>$<?=number_format($quoteItem['price_incl_tax'], 2)?></td>
+<!--                                       <td style='text-align:center;' valign='top'>-->
+<!--                                           Discount-->
+<!--                                           --><?php
+//                                                $column=6;
+//                                           ?>
+<!--                                       </td>-->
+                                       <td style='text-align:center;' valign='top'>$<?php
+//                                           number_format($quoteItem['custom_price'], 2)
+                                                if(empty($quoteItem['custom_price']))
+                                                    echo number_format($quoteItem['price_incl_tax'], 2);
+                                                else
+                                                    echo number_format($quoteItem['custom_price'], 2);
+                                           ?>
+                                       </td>
+                                       <td style='text-align:center;' valign='top'>
+                                           <strong>$<?php
+                                                    if(empty($quoteItem['custom_price']))
+                                                        echo number_format($quoteItem['qty']*$quoteItem['price_incl_tax'], 2);
+                                                    else
+                                                        echo number_format($quoteItem['qty']*$quoteItem['custom_price'], 2);
+                                               ?>
+                                           </strong></td>
+                                   </tr>
+                               <?php endforeach; ?>
+                               <tr height='34px'>
+                                   <td colspan='3' style='border-top:1px solid #000; text-align:right;'></td>
+                                   <td style='border-top:1px solid #000; padding-top:8px; text-align:right; font-weight:bold;' colspan='3'>Requested Product Total:</td>
+                                   <td style='border-top:1px solid #000; padding-top:8px; text-align:center;'><strong>
+                                       <?php
+                                            $total1 = 0;
+                                            foreach ($quoteItemArr as $quoteItem){
+                                                $total1+=$quoteItem['qty'] * (empty($quoteItem['custom_price'])?$quoteItem['price_incl_tax']:$quoteItem['custom_price']);
+                                            }
+                                            echo "$".number_format($total1, 2).'<br>'.$quoteArr[0]['quote_currency_code'];
+                                       ?>
+                                       </strong></td>
+                               </tr>
+                               <tr>
+                                   <td colspan='6'><i>Recommended Item(s):</i></td>
+                               </tr>
+                               <?php
+                               $total2 = 0;
+                               ?>
+                               <?php foreach ($recommendItemArr as $recommendItem): ?>
+                                   <tr height='30px'>
+                                       <td style='text-align:center;' valign='top'><?=number_format($recommendItem['qty'])?></td>
+                                       <td style='text-align:center;' valign='top'><?=$recommendItem['sku']?></td>
+                                       <td style='text-align:center;' valign='top'>UnitSize</td>
+                                       <td style='text-align:center;' valign='top'><?=$recommendItem['name']?></td>
+                                       <td style='text-align:center;' valign='top'>$<?=number_format($recommendItem['price_incl_tax'], 2)?></td>
+                                       <!--                                       <td style='text-align:center;' valign='top'>-->
+                                       <!--                                           Discount-->
+                                       <!--                                           --><?php
+                                       //                                                $column=6;
+                                       //                                           ?>
+                                       <!--                                       </td>-->
+                                       <td style='text-align:center;' valign='top'>$<?php
+                                           //                                           number_format($quoteItem['custom_price'], 2)
+                                           if(empty($recommendItem['custom_price']))
+                                               echo number_format($recommendItem['price_incl_tax'], 2);
+                                           else
+                                               echo number_format($recommendItem['custom_price'], 2);
+                                           ?>
+                                       </td>
+                                       <td style='text-align:center;' valign='top'>
+                                           <strong>$<?php
+                                               if(empty($recommendItem['custom_price']))
+                                                   echo number_format($recommendItem['qty']*$recommendItem['price_incl_tax'], 2);
+                                               else
+                                                   echo number_format($recommendItem['qty']*$recommendItem['custom_price'], 2);
+                                               ?>
+                                           </strong></td>
+                                   </tr>
+                                   <?php
+                                       $total2+=$recommendItem['qty'] * (empty($recommendItem['custom_price'])?$recommendItem['price_incl_tax']:$recommendItem['custom_price']);
+                                   ?>
+                               <?php endforeach; ?>
+                               <tr height='34px'>
+                                   <td colspan='3' style='border-top:1px solid #000; text-align:right;'></td>
+                                   <td style='border-top:1px solid #000; padding-top:8px; text-align:right; font-weight:bold;' colspan='3'>Grand Total:</td>
+                                   <td style='border-top:1px solid #000; padding-top:8px; text-align:center;'>
+                                       <strong>
+                                           $<?=number_format($total1+$total2, 2)?><br>
+                                           <?=$quoteArr[0]['quote_currency_code']?>
+                                       </strong>
+                                   </td>
+                               </tr>
+<!--                               if($deliverables<>""){$column3=$column2-1;-->
+<!--                               $content.="<tr>-->
+<!--                                   <td height='16px' valign='top'><strong>Deliverables:</strong></td>-->
+<!--                                   <td height='16px' colspan='$column3'>$deliverables<br/><br/></td>-->
+<!--                               </tr>";-->
+<!--                               }-->
+                               <tr>
+                                   <td height='16px' valign='top'><strong>Deliverables:</strong></td>
+                                   <td height='16px' colspan='6'><?=empty($results[0]['terms'])?:$results[0]['terms']?><br/><br/></td>
+                               </tr>
+                               <tr>
+                                   <td height='24px' valign='top'><strong>Notes:</strong></td>
+                                   <td height='16px' colspan='6'><?=empty($results[0]['break_line'])?:$results[0]['break_line']?></td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' colspan='7' >&nbsp;</td>
+                               </tr>
+                           </table>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td width='450px' style='border-top:2px #000 solid;' colspan='2'>
+                           <table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+                               <tr>
+                                   <td height='16px' colspan='2'>&nbsp;</td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' colspan='2'>Thank you for the opportunity to submit this quotation. Please contact me if you have any additional questions.<br/>Best Regards,<br/>$rep</td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' colspan='2'>&nbsp;</td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' colspan='2'><strong>To place this quote into an order:</strong></td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' width='50%'><strong>Phone:</strong> 1-866-757-2414</td>
+                                   <td height='16px' width='50%'><strong>Mail:</strong> Applied Biological Materials Inc.</td>
+                               </tr>
+                               <tr>
+                                   <td height='16px'><strong>Fax:</strong> 604-247-2414</td>
+                                   <td height='16px'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1-3671 Viking Way</td>
+                               </tr>
+                               <tr>
+                                   <td height='16px'><strong>Email:</strong> order@abmgood.com</td>
+                                   <td height='16px'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Richmond, BC V6V2J5</td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' colspan='2'>&nbsp;</td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' style='border-top:2px #000 solid; padding-top:8px;' colspan='2'><span style='font-size:12px;'>US customers may be subjected to an additional FDA inspection fee for cross-border delivery.<br/>
+							  Quote valid until expiry date listed on top.<br/>
+							  Total listed is subject to additional shipping and banking fees, and any applicable taxes or duties.<br/>
+							  Products are for research purposes only. Not for human or animal consumption.<br/>
+							  Lead time specified is from the date of order placement.<br/>
+							  Cancellations of orders involving custom service items prior to shipment are subjected to a reagent recovery fee of 20% of the custom service price, this is in addition to any applicable deposits.</span></td>
+                               </tr>
+                               <tr>
+                                   <td height='16px' colspan='2'>&nbsp;</td>
+                               </tr>
+                           </table>
+                       </td>
+                   </tr>
+               </table>
+</div>
+<br>
+<button onclick="print()">Print Quote</button>
+<script>
+    require(['jquery'], function ($) {
+        print = function printQuote() {
+//            var w = window.open();
+//            var html = $("#quoteTable").html();
+//            $(w.document.body).html(html);
+             var mywindow = window.open('', 'PRINT');
+             mywindow.document.write("<html><body style='-webkit-print-color-adjust:exact;'>");
+             mywindow.document.write(document.getElementById('quoteTable').innerHTML);
+             mywindow.document.write('</body></html>');
+             mywindow.document.close(); // necessary for IE >= 10
+             mywindow.focus(); // necessary for IE >= 10*/
+             mywindow.print();
+             mywindow.close();
+             return true;
+        }
+    });
+</script>
+=======
+    //get customer information
+    var_dump($results[0]);die();
+
+?>
+
+<?php
+//email content
+//$content = "
+//			<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
+//			<html>
+//			<head>
+//			<title>Applied Biological Materials Inc.</title>
+//			<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+//			<link href='/style/css.css' rel='stylesheet' type='text/css'>
+//			<script src='/style/environment.js' type='text/javascript'></script>
+//			</head>
+//			<link href='/style/css.css' rel='stylesheet' type='text/css' />
+//			<style type='text/css'>
+//			.style1 {color: #000000;
+//				font-weight: bold;
+//			}
+//			.style2 {color: #000000}
+//			.STYLE3 {color: #000000}
+//			</style>
+//			<body>
+//			   <table width='800px' border='0' cellpadding='0' cellspacing='0' class='smal' style='color:#000;'>
+//			   	 <tr>
+//				 	<td width='450px' style='border-bottom:2px #000 solid;'>
+//						<table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+//							<tr>
+//							  <td height='16px'><img src='/images/logo-water-print.png' width='215px' height='60px' border='0' alt='ABM Logo' style='margin:10px 0px 10px 10px;'  /></td>
+//							</tr>
+//							<tr>
+//							<tr>
+//							  <td height='10px'>&nbsp;</td>
+//							</tr>
+//							  <td height='16px'><span style='font-size:22px; font-weight:bold;'>Price Quotation # $quoteIncrementId</span></td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' colspan='2'>&nbsp;</td>
+//							</tr>
+//						</table>
+//					</td>
+//				 	<td style='border-bottom:2px #000 solid; padding-bottom:0px;'>
+//						<table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+//							<tr>
+//							  <td height='16px'>Applied Biological Materials Inc.</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'>Suite #1-3671 Viking Way</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'>Richmond, BC, CANADA &nbsp; V6V 2J5</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'>Tel: 604-247-2416</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'>Fax: 604-247-2414</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'>www.abmgood.com</td>
+//							</tr>
+//						</table>
+//					</td>
+//				 </tr>
+//				 <tr>
+//				 	<td width='450px' style='border-bottom:2px #000 solid;'>
+//
+//					</td>
+//				 	<body style='border-bottom:2px #000 solid;'>
+//						<table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+//							<tr>
+//							  <td height='16px' colspan='2'>&nbsp;</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' width='40%'><strong>Quote Date:</strong></td>
+//							  <td width='60%'>$results[0]['created_at']</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'><strong>Valid Until:</strong></td>
+//							  <td>$results[0]['expiry']</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'>&nbsp;</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' valign='top'><strong>Est Lead Time:</strong></td>
+//							  <td>lead time</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'>&nbsp;</td>
+//							</tr>
+//						</table>
+//					</body>
+//			     </tr>
+//			</body>
+//			</html>   				";
+
+
+//
+//                 $content.="<tr>
+//                              <td height='16px'><strong>Account Rep:</strong></td>
+//                              <td></td>
+//                            </tr>";
+//
+//$content.="
+//							<tr>
+//							  <td height='16px'>&nbsp;</td>
+//							</tr>
+//						</table>
+//					</td>
+//				 </tr>";
+//    if($projectAim<>""){
+//        $content.="<tr>
+//                        <td width='450px' colspan='2'>
+//                            <table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>";
+//        if($projectAim<>""){$content.="
+//                                <tr>
+//                                  <td height='16px' colspan='2'>&nbsp;</td>
+//                                </tr>
+//                                <tr>
+//                                  <td height='16px' width='15%' valign='top'><strong>Project Aim:</strong></td>
+//                                  <td height='16px' width='85%'>$projectAim</td>
+//                                </tr>";
+//        }
+//        $content.="</table>
+//                        </td>
+//                     </tr>";
+//    }
+//$content.="
+//				  <tr>
+//					 <td colspan='2'>
+//						<br/>
+//						<table width='100%'  border='0' cellpadding='2px' cellspacing='0' class='content' style='border:0px solid #000;'>
+//								<tr>
+//									  <th width='2%' style='text-align:center; background-color:#000; color:#FFF;'>Qty</th>
+//									  <th width='12%' style='text-align:center; background-color:#000; color:#FFF;' height='40'>Cat No</th>
+//									  <th width='13%' style='text-align:center; background-color:#000; color:#FFF;'>Unit</th>
+//									  <th width='35%' style='text-align:center; background-color:#000; color:#FFF;'>Description</th>
+//									  <th width='10%' style='text-align:center; background-color:#000; color:#FFF;'>List Price</th>";
+//if($disctotal<>0){$content.="<th width='9%' style='text-align:center; background-color:#000; color:#FFF;'>Discount</th>
+//									  <th width='10%' style='text-align:center; background-color:#000; color:#FFF;'>Sale Price</th>";
+//}
+//$content.="<th width='10%'  style='text-align:center; background-color:#000; color:#FFF;'>Total Cost</th>
+//								</tr>
+//								<tr>
+//									<td colspan='6'><i>Requested Item(s):</i></td>
+//								</tr>";
+////shopping cart list
+//$total=0;
+//$crt="select * from shoplist_dist where sessionID='$quote' AND additionalItem='N' order by sn";
+//$crtres=mysql_query($crt,$db);
+//while ($cr=mysql_fetch_array($crtres)){
+//    $shpcatno = $cr['catNo'];
+//    $pname = $cr['pname'];
+//    $notes = $cr['Notes'];
+//    $quan = $cr['quantity'];
+//    $unitsize = $cr['unit'];
+//    $orgprice = $cr['org_price'];
+//    $saleprice=number_format($cr['price'], 2, '.', '');
+//    $discper=$cr['discount_percent']*100;
+//    $subtotal = number_format($saleprice*$quan, 2, '.', '');
+//    $total=number_format($total+$subtotal, 2, '.', '');
+//
+//    $content.="
+//												  <tr height='30px'>
+//													<td style='text-align:center;' valign='top'>$quan</td>
+//													<td style='text-align:center;' valign='top'>$shpcatno</td>
+//													<td style='text-align:center;' valign='top'>$unitsize</td>
+//													<td style='text-align:center;' valign='top'>$pname";
+//
+//    if($notes<>""){$content.="<br/><span style='font-size:8px;'>$notes</span>";
+//    }
+//    $content.="</td>
+//													<td style='text-align:center;' valign='top'>$$orgprice</td>";
+//    if($disctotal<>0){$content.="
+//													<td style='text-align:center;' valign='top'>";
+//        if($discper<>0){$content.="$discper%";}else{$content.="-";}
+//        $content.="</td>
+//													<td style='text-align:center;' valign='top'>$$saleprice</td>";
+//        $column=6;
+//    }else{$column=4;}
+//
+//    $content.="
+//													<td style='text-align:center;' valign='top'><strong>$$subtotal</strong></td>
+//												  </tr>";
+//}
+//$column4=$column-2;
+//$content.="
+//											<tr height='34px'>
+//												<td colspan='$column4' style='border-top:1px solid #000; text-align:right;'></td>
+//												<td style='border-top:1px solid #000; padding-top:8px; text-align:right; font-weight:bold;' colspan='3'>Requested Product Total:</td>
+//												<td style='border-top:1px solid #000; padding-top:8px; text-align:center;'><strong>$$total $dollars</strong></td>
+//											</tr>";
+//$total2=0;
+//$crta="select * from shoplist_dist where sessionID='$quote' AND additionalItem='Y' order by sn";
+//$crtresa=mysql_query($crta,$db);
+//$num_rows = mysql_num_rows($crtresa);
+//if($num_rows>0){
+//    $content.="
+//												<tr>
+//													<td colspan='6'><i>Recommended Item(s):</i></td>
+//												</tr>";
+//}
+//while ($cr=mysql_fetch_array($crtresa)){
+//    $shpcatno = $cr['catNo'];
+//    $pname = $cr['pname'];
+//    $notes = $cr['Notes'];
+//    $quan = $cr['quantity'];
+//    $unitsize = $cr['unit'];
+//    $orgprice = $cr['org_price'];
+//    $saleprice=number_format($cr['price'], 2, '.', '');
+//    $discper=$cr['discount_percent']*100;
+//    $subtotal = number_format($saleprice*$quan, 2, '.', '');
+//    $total=number_format($total+$subtotal, 2, '.', '');
+//    $total2=number_format($total2+$subtotal, 2, '.', '');
+//
+//    $content.="
+//												  <tr height='30px'>
+//													<td style='text-align:center;' valign='top'>$quan</td>
+//													<td style='text-align:center;' valign='top'>$shpcatno</td>
+//													<td style='text-align:center;' valign='top'>$unitsize</td>
+//													<td style='text-align:center;' valign='top'>$pname";
+//
+//    if($notes<>""){$content.="<br/><span style='font-size:8px;'>$notes</span>";
+//    }
+//    $content.="</td>
+//													<td style='text-align:center;' valign='top'>$$orgprice</td>";
+//    if($disctotal<>0){$content.="
+//													<td style='text-align:center;' valign='top'>";
+//        if($discper<>0){$content.="$discper%";}else{$content.="-";}
+//        $content.="</td>
+//													<td style='text-align:center;' valign='top'>$$saleprice</td>";
+//        $column=6;
+//    }else{$column=4;}
+//
+//    $content.="
+//													<td style='text-align:center;' valign='top'><strong>$$subtotal</strong></td>
+//												  </tr>";
+//}
+//$column2=$column+2;
+////if($total2!=0){$content.="
+////<tr height='34px'>
+////<td colspan='$column' style='border-top:1px solid #000; text-align:right;'></td>
+////<td style='border-top:1px solid #000; text-align:right;'>Recommended Product Total:</td>
+////<td style='border-top:1px solid #000; padding-top:8px; text-align:center;'><strong>$$total2 $dollars</strong></td>
+////</tr>";
+////}
+//$content.="
+//										<tr height='34px'>
+//											<td colspan='$column4' style='border-top:1px solid #000; text-align:right;'></td>
+//											<td style='border-top:1px solid #000; padding-top:8px; text-align:right; font-weight:bold;' colspan='3'>Grand Total:</td>
+//											<td style='border-top:1px solid #000; padding-top:8px; text-align:center;'><strong>$$total $dollars</strong></td>
+//										</tr>";
+//
+//if($deliverables<>""){$column3=$column2-1;
+//    $content.="<tr>
+//											  <td height='16px' valign='top'><strong>Deliverables:</strong></td>
+//											  <td height='16px' colspan='$column3'>$deliverables<br/><br/></td>
+//										</tr>";
+//}
+//
+//if($ordnotes<>""){$column3=$column2-1;
+//    $content.="<tr>
+//											  <td height='24px' valign='top'><strong>Notes:</strong></td>
+//											  <td height='16px' colspan='$column3'>$ordnotes</td>
+//										</tr>";
+//}
+//$content.="
+//							<tr>
+//							  <td height='16px' colspan='$column2' >&nbsp;</td>
+//							</tr>
+//						</table>
+//					</td>
+//				  </tr>
+//				 <tr>
+//				 	<td width='450px' style='border-top:2px #000 solid;' colspan='2'>
+//						<table width='95%'  border='0' cellpadding='0' cellspacing='0' class='content'>
+//							<tr>
+//							  <td height='16px' colspan='2'>&nbsp;</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' colspan='2'>Thank you for the opportunity to submit this quotation. Please contact me if you have any additional questions.<br/>Best Regards,<br/>$rep</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' colspan='2'>&nbsp;</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' colspan='2'><strong>To place this quote into an order:</strong></td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' width='50%'><strong>Phone:</strong> 1-866-757-2414</td>
+//							  <td height='16px' width='50%'><strong>Mail:</strong> Applied Biological Materials Inc.</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'><strong>Fax:</strong> 604-247-2414</td>
+//							  <td height='16px'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1-3671 Viking Way</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px'><strong>Email:</strong> order@abmgood.com</td>
+//							  <td height='16px'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Richmond, BC V6V2J5</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' colspan='2'>&nbsp;</td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' style='border-top:2px #000 solid; padding-top:8px;' colspan='2'><span style='font-size:12px;'>US customers may be subjected to an additional FDA inspection fee for cross-border delivery.<br/>
+//							  Quote valid until expiry date listed on top.<br/>
+//							  Total listed is subject to additional shipping and banking fees, and any applicable taxes or duties.<br/>
+//							  Products are for research purposes only. Not for human or animal consumption.<br/>
+//							  Lead time specified is from the date of order placement.<br/>
+//							  Cancellations of orders involving custom service items prior to shipment are subjected to a reagent recovery fee of 20% of the custom service price, this is in addition to any applicable deposits.</span></td>
+//							</tr>
+//							<tr>
+//							  <td height='16px' colspan='2'>&nbsp;</td>
+//							</tr>
+//						</table>
+//					</td>
+//				 </tr>
+//			  </table>
+//			 </body>
+//			</html>";
+
+echo "$content<br/>
+		 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href='/admin/Distributor_Pricing/quotePrint-new.php?quote=$quote'>Print Quote</a>";
+
+?>
+
+>>>>>>> d71a872ac3998594146475285259015d253e15bc
+

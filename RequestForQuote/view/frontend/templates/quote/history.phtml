@@ -1,0 +1,42 @@
+<?php
+/** @var $block \Magento\Sales\Block\Adminhtml\Order\View\History **/
+$helper = $this->helper('Lof\RequestForQuote\Helper\Data');
+?>
+<?php $_quotes = $block->getQuotes(); ?>
+<?php if ($_quotes && count($_quotes)): ?>
+    <div class="table-wrapper quotes-history">
+        <table class="data table table-quote-items history" id="my-quotes-table">
+            <caption class="table-caption"><?php echo __('Quotes') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php echo __('Quote #') ?></th>
+                    <th scope="col" class="col date"><?php echo __('Date') ?></th>
+                    <th scope="col" class="col status"><?php echo __('Status') ?></th>
+                    <th scope="col" class="col actions" style="width: 100px;">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_quotes as $_quote): ?>
+                    <tr>
+                        <td data-th="<?php echo $block->escapeHtml(__('Quote #')) ?>" class="col id"><?php echo $_quote->getIncrementId() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php echo $block->formatDate($_quote->getCreatedAt()) ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php echo $_quote->getStatusLabel() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?php echo $block->getViewUrl($_quote) ?>" class="action view">
+                                <span><?php echo __('View Quote') ?></span>
+                            </a>
+                            <a href="<?php echo $block->getDeleteUrl($_quote) ?>" class="action view">
+                                <span><?php echo __('Delete Quote') ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="quote-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('There is no quote yet.'); ?></span></div>
+<?php endif ?>

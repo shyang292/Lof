@@ -1,0 +1,7 @@
+<?php
+/** @var \Magento\Sales\Block\Order\Email\Items\DefaultItems $block */
+$helper = $this->helper('Lof\RequestForQuote\Helper\Data');
+$_item = $block->getItem();
+?>
+
+<?= /* @escapeNotVerified */  $helper->formatPrice($_item->getRowTotal()) ?>

@@ -1,0 +1,53 @@
+.quotation-quote-edit .admin__table-wrapper input {
+    width: 120px;
+}
+
+#form_tabs_order_info_content table.data-table {
+    background: #ffffff;
+    border: 1px solid #E0E0E0;
+    width: 100%;
+}
+
+#form_tabs_order_info_content table.data-table th, table.data-table td {
+    padding: 16px 10px;
+}
+
+#form_tabs_order_info_content table.data-table th {
+    font-weight: bold;
+    text-align: left;
+}
+
+#form_tabs_order_info_content table.data-table thead th {
+    background-color: #E0E0E0;
+    background: #f1f1f1;
+}
+
+#form_tabs_order_info_content table.data-table tbody th, table.data-table tbody td {
+    font-size: 15px;
+    border: 1px solid #E0E0E0;
+    border-width: 1px 0;
+}
+
+#form_tabs_order_info_content tbody tr:last-child td {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.admin__field.field-group_id {
+    display: none;
+}
+
+.quotation-quote-create-index .admin__fieldset .field-email > .label, .quotation-quote-create-index .admin__fieldset .field-email > .control {
+    margin-left: 0;
+}
+
+.quotation-quote-create-index .admin__fieldset .field-email > .control {
+    margin-bottom: 10px;
+}
+
+.quotation-quote-create-index .order-sidebar .order-currency {
+    margin-bottom: 0;
+}
+
+.admin__table-primary th:first-child, .admin__table-primary td:first-child {
+    padding-left: 10px
+}

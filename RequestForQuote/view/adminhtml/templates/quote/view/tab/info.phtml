@@ -1,0 +1,14 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php /** @var $block \Lof\RequestForQuote\Block\Adminhtml\Quote\View\Tab\Info */ ?>
+<?php $_quote = $block->getQuote() ?>
+<input type="hidden" name="quote_id" value="<?php echo $_quote->getQuoteId();
+ ?>"/>
+<section class="admin__page-section">
+	<div class="admin__page-section-title">
+		<span class="title"><?php echo __('Items Quoted') ?></span>
+	</div>
+	<?php echo $block->getItemsHtml() ?>
+</section>
+<?php echo $block->getChildHtml('order_info') ?>

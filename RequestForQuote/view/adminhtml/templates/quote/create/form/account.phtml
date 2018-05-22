@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<div class="admin__page-section-title <?php /* @escapeNotVerified */ echo $block->getHeaderCssClass() ?>">
+	<span class="title"><?php /* @escapeNotVerified */ echo $block->getHeaderText() ?></span>
+	<div class="actions"></div>
+</div>
+<?php $formValues = $block->getFormValues(); ?>
+<fieldset class="fieldset admin__fieldset " id="main">
+	<div class="admin__field field field-email " data-ui-id="billing-address-fieldset-element-form-field-email">
+		<label class="label admin__field-label" for="email" data-ui-id="billing-address-fieldset-element-text-order-account-email-label"><span><?php echo __('Email'); ?></span></label>
+		<div class="admin__field-control control">
+			<input id="email" name="order[account][email]" data-ui-id="billing-address-fieldset-element-text-order-account-email" value="<?php echo isset($formValues['email'])?$formValues['email']:''; ?>" readonly="readonly" class="admin__control-text input-text admin__control-text" type="text">
+		</div>
+	</div>
+<!--	<div class="admin__field field field-customer_note">-->
+<!--		<label class="label admin__field-label" for="customer_note"><span>--><?php //echo __('Remarks'); ?><!--</span></label>-->
+<!--		<div class="admin__field-control control">-->
+<!--			<textarea name="order[account][customer_note]" id="customer_note" cols="100" rows="10" class="admin__control-textarea" style="height: auto"></textarea>-->
+<!--		</div>-->
+<!--	</div>-->
+</fieldset>
+
+<script>
+	require(["prototype", "Magento_Sales/order/create/form"], function(){
+		order.accountFieldsBind($('customer_account_fieds'));
+	});
+</script>

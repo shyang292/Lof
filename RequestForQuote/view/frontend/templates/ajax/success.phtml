@@ -1,0 +1,45 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote\Success */
+$product         = $block->getProduct();
+$childProduct 	 = $block->getChildProduct();
+$productUrl      = $product->getProductUrl();
+$productName     = $product->getName();
+$productImageUrl = $this->getUrl('pub/media/catalog') . 'product' . $product->getImage();
+if($childProduct && ($child_image_name = $childProduct->getImage())) {
+	$productImageUrl = $this->getUrl('pub/media/catalog') . 'product' . $child_image_name;
+} 
+$id              = 'countdown-' . uniqid();
+?>
+<div id="rfq-confirm">
+	<h1><?php echo __('Information');?></h1>
+	<div id="messageBox">
+		<p>
+			<?php echo __('You have added <a href="%1" title="%2">%3</a> to your quote.', $productUrl, $block->escapeHtml($productName), $productName) ?>
+		</p>
+		<p>
+			<a href="<?php echo $productUrl ?>" title="<?php echo $productName ?>" class="product-item-photo">
+				<img src="<?php echo $productImageUrl ?>" width="165" height="165" alt="<?php echo $block->escapeHtml($productName) ?>">
+			</a>
+		</p>
+	</div>
+	<div id="confirmButtons">
+		<a class="checkout action primary" title="Go to Checkout" data-role="proceed-to-checkout" type="button" href="<?php echo $block->getUrl('quotation/quote'); ?>"><span><?php echo __('Submit Your Quote'); ?></span></a>
+		<button class="rfq-btn-right"><?php echo __('Continue Shopping');?>(<span id="<?php echo $id ?>">10</span>)</button>
+	</div>
+	<script>
+		require(['jquery'], function($) {
+			window.setInterval(function() {
+				var $coundownSelection = $("#<?php echo $id ?>");
+				var timeCounter = $coundownSelection.html();
+				var updateTime = eval(timeCounter)- eval(1);
+				$coundownSelection.html(updateTime);
+				if (updateTime==0) {
+					parent.jQuery.fancybox.close();
+				}
+			}, 1000);
+			$('.rfq-btn-right').click(function(e) {
+				parent.jQuery.fancybox.close();
+			});
+		});
+	</script>
+</div>

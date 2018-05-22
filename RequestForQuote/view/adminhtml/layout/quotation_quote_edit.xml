@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_RequestForQuote
+ * @copyright  Copyright (c) 2017 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="sales_order_transactions_grid_block"/>
+	<head>
+		<css src="Lof_RequestForQuote::css/styles.css" />
+	</head>
+	<update handle="sales_order_item_price"/>
+	<body>
+		<referenceContainer name="page.main.actions">
+            <block class="Lof\RequestForQuote\Block\Adminhtml\Menu" name="lof_requestforquote_menu" />
+        </referenceContainer>
+		<referenceContainer name="content">
+			<block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit" name="quote_form_edit"/>
+		</referenceContainer>
+		<referenceContainer name="left">
+			<block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Tabs" name="lof_quote_edit_tabs">
+				<block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Tab\Info" name="order_tab_info" template="quote/view/tab/info.phtml">
+					
+					<block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Items" name="order_items" template="quote/view/items.phtml">
+						<arguments>
+							<argument name="columns" xsi:type="array">
+								<item name="product" xsi:type="string" translate="true">Product</item>
+								<item name="description" xsi:type="string" translate="true">Description</item>
+							</argument>
+						</arguments>
+						<block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Items\Renderer\DefaultRenderer" as="default" template="quote/view/items/renderer/default.phtml">
+							<arguments>
+								<argument name="columns" xsi:type="array">
+									<item name="product" xsi:type="string" translate="false">col-product</item>
+									<item name="qty" xsi:type="string" translate="false">col-ordered-qty</item>
+								</argument>
+							</arguments>
+						</block>
+						<block class="Magento\Sales\Block\Adminhtml\Items\Column\Qty" name="column_qty" template="items/column/qty.phtml" group="column"/>
+						<block class="Magento\Sales\Block\Adminhtml\Items\Column\Name" name="column_name" template="Lof_RequestForQuote::quote/view/items/column/name.phtml" group="column"/>
+						<block class="Magento\Framework\View\Element\Text\ListText" name="order_item_extra_info"/>
+
+					</block>
+					
+					<block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Info" name="order_info" template="quote/view/info.phtml"/>
+				</block>
+				<action method="addTab">
+					<argument name="name" xsi:type="string">order_info</argument>
+					<argument name="block" xsi:type="string">order_tab_info</argument>
+				</action>
+			</block>
+		</referenceContainer>
+	</body>
+</page>

@@ -1,0 +1,297 @@
+Add New Quote,Ajouter un nouveau devis
+Manage Quotations,Gérer les devis
+Manage Custom Fields,Gérer les champs personnalisés
+Manage Quotation Rules,Gérer les règles de devis
+Settings,Paramètres
+Guide,Guide
+Get Support,Obtenir de l'aide
+Submit Quote,Envoyer un devis
+Are you sure you want to cancel this order?,Êtes-vous sûr de vouloir annuler cette commande ?
+Cancel,Annuler
+Create New Quote for %1 in %2,Créer un nouveau devis pour %1 en %2
+Create New Quote in %1,Créer un nouveau devis dans %1
+Create New Quote for %1,Créer un nouveau devis pour %1
+Create New Quote for New Customer,Créer un nouveau devis pour un nouveau client
+You created the order.,Vous avez créé la commande.
+Order saving error: %1,Erreur d'enregistrement de commande: %1
+Delete,Effacer
+Are you sure you want to send a confirmation email to customer?,Êtes-vous sûr de vouloir envoyer un e-mail de confirmation au client?
+Send Email,Envoyer un email
+Create Order,Créer une commande
+Save Quote,Enregistrer le devis
+Save Quote & Send Update Email,Enregistrer un devis et envoyer un e-mail de mise à jour
+Send an email contains a purchase link to customer email. Customer click and redirect to site.,Envoyer un e-mail contient un lien d'achat vers un e-mail client. Le client clique et redirige vers le site.
+Accept Request,Accepter la requête
+Order # %1 %2 | %3,Commande # %1 %2 | %3
+"This order contains (%1) items and therefore cannot be edited through the admin interface. If you wish to continue editing, the (%2) items will be removed,  the order will be canceled and a new order will be placed.","Cette commande contient (%1) éléments et ne peut donc pas être modifiée via l'interface d'administration. Si vous souhaitez continuer à modifier, les éléments (%2) seront supprimés, la commande sera annulée et une nouvelle commande sera passée."
+Are you sure? This order will be canceled and a new one will be created instead.,Êtes-vous sûr ? Cette commande sera annulée et une nouvelle sera créée à la place.
+Please correct the parent block for this block.,Veuillez corriger le bloc parent pour ce bloc.
+ [deleted],[supprimé]
+Edit,modifier
+Invalid parent block for this block,Bloc parent invalide pour ce bloc
+Information,Information
+Order Information,Informations sur la commande
+Form Information,Informations sur le formulaire
+Invalid method: %1,Méthode non valide: %1
+My Orders,Mes commandes
+"<img src=""%1"" alt=""rfq-icon""/>","<img src = ""%1"" alt = ""rfq-icon"" />"
+You sent the confirmation email.,Vous avez envoyé l'email de confirmation.
+Something went wrong while processing your quote. Please try again later.,Une erreur s'est produite lors du traitement de votre devis. Veuillez réessayer plus tard.
+Quotations,Devis
+New Quote,Nouveau Devis
+You created the quote.,Nous devis créé.
+Quote saving error: %1,Erreur d'enregistrement de devis: %1
+We can't find a quote to delete.,Nous ne pouvons pas trouver un devis à supprimer.
+You deleted the quote.,Vous avez supprimé votre devis.
+This quote no longer exists.,Ce devis n'existe plus.
+RequestForQuote,Demande de devis
+Quote,Devis
+Edit Quote,Modifier le devis
+You saved the quote,Vous avez enregistré le devis
+We can't find a quote.,Nous ne pouvons pas trouver de devis.
+A total of %1 record(s) have been deleted.,Un total de %1 enregistrement (s) ont été supprimés.
+Quantity was recalculated from %1 to %2,La quantité a été recalculée de %1 à %2
+We adjusted product quantities to fit the required increments.,Nous avons ajusté les quantités de produits pour les adapter aux incréments requis.
+We can't find the quote.,Nous ne pouvons pas trouver le devis.
+You added %1 to your quote.,Vous avez ajouté %1 à votre devis.
+We can't add this item to your quote.,Nous ne pouvons pas ajouter cet article à votre devis.
+Out of stock,En rupture de stock
+We can't remove the item.,Nous ne pouvons pas retirer l'article.
+Please enter your email.,S'il vous plaît entrez votre email.
+Success Page,Succès
+We can't update the shopping cart.,Nous ne pouvons pas mettre à jour le panier.
+We can't mote to the shopping cart.,Nous ne pouvons pas mote au panier.
+Page not found.,Page non trouvée.
+My Quotes,Mes devis
+Quote # %1,Devis # %1
+We can't send the email quote right now.,Nous ne pouvons pas envoyer le devis par courriel dès maintenant.
+The product does not exist.,Le produit n'existe pas.
+%1 (Default),%1 (par défaut)
+Pending,En attente
+Ordered,Commandé
+Cancelled,Annulé
+Reviewed,Revu
+Expired,Expiré
+View,Vue
+Address Information,Information d'adresse
+Payment &amp; Shipping Information,Paiement &amp; Informations sur la livraison
+Order Total,Total de la commande
+Order History,Historique des commandes
+Order Currency:,Devise de la commande:
+Email,Email
+Remarks,Remarques
+Product,Produit
+Price,Prix
+Qty,Qté
+Subtotal,Total
+Discount,Remise
+Row Subtotal,Sous-total
+Action,Action
+No ordered items,Aucun article commandé
+Update Items and Quantities,Mettre à jour les articles et les quantités
+Total %1 product(s),Total %1 produit (s)
+Subtotal:,Total :
+SKU,Réf.
+Tier Pricing,Tarification de niveau
+Custom Price,Prix ​​personnalisé
+Apply,Appliquer
+Please select,Veuillez sélectionner
+Remove,Retirer
+Quote & Account Information,Devis et informations sur le compte
+Quote Date,Date de devis
+Quote Date (%1),Date de soumission (%1)
+Quote Status,Etat du devis
+Purchased From,Acheté de
+Link to the New Order,Lien vers nouvelle commande
+Link to the Previous Order,Lien vers la commande précédente
+Placed from IP,Placé depuis IP
+Expiry Date,Date d'expiration
+Select Date,Sélectionner une date
+Account Information,Information sur le compte
+Customer Name,Nom du client
+Customer Group,Groupe de clients
+Company,Société
+Telephone,Téléphone
+Address,Adresse
+Tax Code,TVA Intra.
+Edit Info,Modifier les infos
+Get Customer Address,Obtenir l'adresse du client
+Loading...,Chargement...
+Edit Information,Modifier les informations
+First Name,Prénom
+Last Name,Nom de famille
+Street,Rue
+Region,Région
+Region Id,Identifiant de région
+Post Code,Code postal
+Country,Pays
+Reset Default,Réinitialiser
+Close Form,Fermer le formulaire
+Comment: ,Commentaire :
+Quote Totals,Totaux de devis
+Quote Subtotal,Sous-total de devis
+Coupon Code,Code de coupon
+Tax,Impôt
+Shipping Fee,Frais d'expédition
+Shipping Note,Note d'expédition
+Quote Total,Citer Total
+Have a error when get customer address info.,Avoir une erreur lors de l'obtention d'informations sur l'adresse du client.
+Image,Image
+Note: ,Remarque :
+Items,Articles
+"You have added <a href=""%1"" title=""%2"">%3</a> to your quote.","Vous avez ajouté <a href=""%1"" title=""%2"">%3 </a> à votre devis."
+Submit Your Quote,Soumettez votre devis
+Name,Prénom
+Gift Message,Message de cadeau
+From:,De :
+To:,À :
+Message:,Message :
+Sub Total,Sous total
+Grand Total,Total
+Compare Products,Comparer les produits
+Print This Page,Imprimer cette page
+Remove Product,Supprimer le produit
+Add to Cart,Ajouter au panier
+Add to Quote,Ajouter au devis
+In stock,En stock
+Add to Wish List,Ajouter à la liste de souhaits
+You have no items to compare.,Vous n'avez aucun article à comparer.
+Remove This Item,Enlever cet article
+Compare,Comparer
+Clear All,Tout effacer
+We can't find products matching the selection.,Nous ne pouvons pas trouver de produits correspondant à la sélection.
+Learn More,Apprendre encore plus
+Shopping Cart Items,Articles du panier
+Item,Article
+Continue Shopping,Continuer vos achats
+Clear Quote,Effacer le devis
+Update Quote,Mettre à jour le devis
+Move to Shopping Cart,Déplacer vers le panier
+Quotes,Devis
+Quote #,Devis #
+Date,Date
+Status,Statut
+Actions,Action
+View Quote,Voir le devis
+Delete Quote,Supprimer le devis
+There is no quote yet.,Il n'y a pas encore de devis.
+Add Note,Ajouter une note
+See price before order confirmation.,Voir le prix avant la confirmation de la commande.
+What's this?,Qu'est-ce que c'est ça?
+Remove item,Retirer l'objet
+You have no items in your quote.,Vous n'avez aucun article dans votre devis.
+"Click <a href=""%1"">here</a> to continue shopping.","Cliquez <a href=""%1""> ici </a> pour continuer vos achats."
+Complete address for tax,Adresse complète
+Sign in for taxes,Inscrivez-vous pour les taxes
+Quote Summary,Résumé des devis
+* Required Fields,* Champs obligatoires
+Enter your details,Entrez vos coordonnées
+Email Address,Adresse e-mail
+Phone,Téléphone
+Tax Id,TVA Intra.
+Thank you for your interest!,Merci pour pour votre intérêt !
+"Your Quote Request # is: <a href=""%1"">%2</a>.","Votre # de demande de devis est: <a href=""%1"">%2 </a>."
+Your Quote Request # is: %1.,Votre # de demande de devis est: %1.
+We'll email you a Quote Request confirmation email with a link to track progress.,Nous vous enverrons un e-mail de confirmation de demande de devis avec un lien pour suivre la progression.
+Print Quote,Imprimer la citation
+"<span class=""label"">Quote Date:</span> %1","<span class = ""label""> Date de devis : </ span> %1"
+Product Name: ,Nom du produit:
+Items Ordered,Les articles commandés
+Product Name,Nom du produit
+Expire at: %1,Expire à : %1
+%store_name: New Quote Request,%store_name : Nouvelle demande de devis
+"%customer_name,","%customer_name,"
+The expire date has been changed to ,La date d'expiration a été changée en
+Quote Request ,Demande de devis
+Placed on ,Placé sur
+Your Quote Request has been reviewed and accepted. Please click,Votre demande de devis a été examinée et acceptée. Cliquez s'il vous plait
+here,ici
+to place order.,passer la commande.
+Expired at: ,Expiré à :
+Your Quote Request has been cancelled,Votre demande de devis a été annulée
+Your Quote Request has been cancelled.,Votre demande de devis a été annulée.
+Your Quote Request has been expired,Votre demande de devis a expiré
+Your Quote Request has been expired.,Votre demande de devis a expiré.
+Thank you for your quote request from %store_name.,Merci pour votre demande de devis de %store_name.
+"You can check the status of your quote request by <a href=""%account_url"">logging into your account</a>.","Vous pouvez vérifier l'état de votre demande de devis en <a href=""%account_url""> vous connectant à votre compte </a>."
+Your quotation details are below. Thank you again for your interest.,Vos détails de devis sont ci-dessous. Merci encore pour votre intérêt.
+"If you have questions about your quote request, you can email us at <a href=""mailto:%store_email"">%store_email</a>","Si vous avez des questions concernant votre demande de devis, vous pouvez nous envoyer un e-mail à <a href=""mailto:%store_email"">%store_email </a>"
+"or call us at <a href=""tel:%store_phone"">%store_phone</a>","ou appelez-nous au <a href=""tel:%store_phone"">% store_phone </a>"
+"Our hours are <span class=""no-link"">%store_hours</span>.","Nos heures sont <span class = ""no-link"">%store_hours </ span>."
+Your Quote Request has been reviewed,Votre demande de devis a été examinée
+Your Quote Request has been reviewed.,Votre demande de devis a été examinée.
+Password,Mot de passe
+You already have an account with us. Sign in or continue as guest.,Vous avez déjà un compte avec nous. Connectez-vous ou continuez en tant qu'invité.
+Login,S'identifier
+Forgot Your Password?,Mot de passe oublié ?
+My Cart,Mon panier
+Close,Fermer
+item,article
+items,articles
+View Quote Request,Voir la demande de devis
+Recently added item(s),Article (s) récemment ajouté (s)
+View and edit quote request,Afficher et modifier la demande de devis
+See Details,Voir les détails
+Options Details,Détails des options
+Update,Mettre à jour
+Cart Subtotal,Sous-total du panier
+Shipping Address,Adresse de livraison
+New Address,Nouvelle adresse
+Shipping Methods,Méthodes de livraison
+Select Method,Sélectionnez la méthode
+Method Title,Titre de la méthode
+Carrier Title,Titre du transporteur
+Next,Suivant
+"Sorry, no quotes are available for this order at this time","Désolé, aucun devis n'est disponible pour cette commande pour le moment"
+Adding...,Ajouter...
+Added,Ajoutée
+"<a href=""http://landofcoder.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">landofcoder.com</a>","<a href=""http://pixeprint.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">pixeprint.com</a>"
+Request for Quote,Demande de devis
+General Setting,Paramètre
+Enabled,Activée
+Icon,Icon
+Email Sender,Email Expéditeur
+Send Quote Email Copy to,Envoyer un devis par email en copie à
+Comma-separated.,Séparées par des virgules.
+Send Quote e-mail notification to,Envoyer une notification par e-mail à
+Enabled Quote On Categories,Devis activé sur les catégories
+Enabled/Disable the add to quote button on categories page.,Activé / Désactivé le bouton Ajouter au devis sur la page des catégories.
+Enabled Quote On Search Result,Citation activée sur le résultat de la recherche
+Enabled/Disable the add to quote button on search result page.,Activé / Désactivé le bouton Ajouter au devis sur la page des résultats de recherche.
+Enabled Quote On Product,Devis activé sur le produit
+Enabled/Disable the add to quote button on product detail page.,Activé / Désactivé le bouton Ajouter au devis sur la page de détail du produit.
+Customer Groups,Groupes de clients
+Just show add to quote for special customer groups.,Juste montrer ajouter au devis pour les groupes de clients spéciaux.
+Show quote for special products,Afficher le devis pour les produits spéciaux
+Show quote for special categories,Afficher le devis pour les catégories spéciales
+Enabled Price On Quote Page,Prix ​​activé sur la page de devis
+Enabled Edit Price On Quote Page,Activé Modifier le prix sur la page de devis
+Quote Sidebar,Barre latérale de devis
+Display Shopping Cart Sidebar,Afficher la barre latérale du panier
+Maximum Display Recently Added Item(s),Affichage maximum Article (s) récemment ajouté (s)
+Email Templates,Modèles d'e-mail
+Accept Quote,Accepter le devis
+Quote Cancelled,Devis annulé
+Quote Reviewed,Devis examiné
+Quote Expired,Devis expiré
+Change Expired Date,Modifier la date d'expiration
+Quote Item Setting,Paramètre d'objet de devis
+Limit Useage the quote item,Limiter l'utilisation des produits du devis
+Limit useage the quote to generate order on frontend. Default: 100,Limiter l'utilisation du devis pour générer une commande sur frontend. Par défaut: 100
+Set Expiry days,Définir les jours d'expiration
+Set number days after the quote created date. Default: 10,Définissez le nombre de jours après la date de création de la citation. Par défaut: 10
+Quote Sidebar Setting,Paramètre de la barre latérale de citation
+Enabled First Name,Prénom activé
+Enabled Last Name,Nom de famille activé
+Enabled Phone Number,Numéro de téléphone activé
+Enabled Company,Société activée
+Enabled Address,Adresse activée
+Enabled Tax Id,Identifiant de taxe activé
+order-header,commande-en-tête
+Description,La description
+Store View,Vue du magasin
+Delete items,Supprimer les éléments
+Are you sure you wan't to delete selected items?,Êtes-vous sûr de vouloir supprimer les éléments sélectionnés?
+ID,ID
+Created,Créé
+Your quote request has been received!,Votre demande de devis a été reçue !

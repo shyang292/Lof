@@ -1,0 +1,244 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var \Lof\RequestForQuote\Block\Adminhtml\Quote\View\Info $block
+ */
+$_order = $block->getOrder();
+//get currency code
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $request = $objectManager->get('Magento\Framework\App\Request\Http');
+    $param = $request->getParam('entity_id');
+    $delItemId;$entityId;
+    if(strpos($param, '&') !== false){
+        $entityId = substr($param, 0, strpos($param, '&'));
+        $delItemId = substr($param, strpos($param, '=')+1);
+    }else{
+        $entityId = $param;
+    }
+    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $connection = $resource->getConnection();
+    $sql = "select quote.quote_currency_code from lof_rfq_quote JOIN quote ON lof_rfq_quote.quote_id = quote.entity_id where lof_rfq_quote.entity_id = ".$entityId;
+    $results = $connection->fetchAll($sql);
+    $currencyCode = $results[0]['quote_currency_code'];
+    $currencySymbol = '';
+    switch ($currencyCode){
+        case "USD":
+            $currencySymbol='$';
+            break;
+        case "CAD":
+            $currencySymbol='CAD$';
+            break;
+        default:
+            $currencySymbol='$';
+    }
+    $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+    $rootPath = $storeManager->getStore()->getBaseUrl();
+    $thisPagePath = $rootPath.'admin/quotation/quote/edit/entity_id/'.$entityId;
+    if(!empty($delItemId)){
+        //remove quote item by itemid
+        $sqlDel = "delete from quote_item where item_id=".$delItemId;
+        $results = $connection->query($sqlDel);
+    }
+
+ ?>
+<div class="admin__table-wrapper">
+    <table class="data-table admin__table-primary edit-order-table">
+        <thead>
+            <tr class="headings">
+<<<<<<< HEAD
+<!--                <th  style="width: 80px;">--><?php //echo __('Image'); ?><!--</th>-->
+=======
+                <th  style="width: 80px;"><?php echo __('Image'); ?></th>
+>>>>>>> d71a872ac3998594146475285259015d253e15bc
+                <?php $i = 0;
+                $columns = $block->getColumns();
+                $lastItemNumber = count($columns) ?>
+                <?php foreach ($columns as $columnName => $columnTitle):?>
+                    <?php if ($columnName == 'product') { ?>
+                    <?php $i++; ?>
+                    <th style="width: 280px;" class="col-<?php /* @noEscape */ echo $columnName ?><?php /* @noEscape */ echo ($i === $lastItemNumber ? ' last' : '')?>"><span><?php /* @noEscape */ echo $columnTitle ?></span></th>
+                    <?php } ?>
+                <?php endforeach; ?>
+<!--                <th style="width: 180px;">--><?php //echo __('Cost Price'); ?><!--</th>-->
+                <th style="width: 180px;"><?php echo __('List Price'); ?></th>
+                <th style="width: 180px;"><?php echo __('Custom Price'); ?></th>
+                <th style="width: 180px;"><?php echo __('Qty'); ?></th>
+<!--                <th style="width: 180px;">--><?php //echo __('Discount'); ?><!--</th>-->
+                <th style="width: 180px;"><?php echo __('Row Total'); ?></th>
+                <th style="width: 180px;"><?php echo __('Recommend'); ?></th>
+                <th style="width: 180px;"><?php echo __('Action'); ?></th>
+            </tr>
+        </thead>
+        <?php $_items = $block->getItemsCollection(); ?>
+        <?php $i = 0; foreach ($_items as $_item):
+        ?>
+
+        <?php if ($_item->getParentItem()) {
+            continue;
+        } else {
+            $i++;
+        }?>
+        <tbody class="<?php /* @noEscape */ echo $i%2 ? 'even' : 'odd' ?>">
+        <!-- td 1 start           -->
+        <td class="quote-item-row-tier col-product">
+            <div id="order_item_380">
+                <div id="order_item_380_title" class="product-title">
+<!--                    <a href="https://new.abmgood.com/admin/catalog/product/edit/id/17859646/">Ugt1a6b AAV</a>-->
+                    <?=$_item->getName()?>
+                </div>
+                <div class="product-sku-block">
+                    <span>SKU:</span> <?=$_item->getSku()?></div>
+            </div>
+            <?php
+            try{
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+                $connection = $resource->getConnection();
+                $tableName = $resource->getTableName('quote_item_option');
+                $sql = "select * from " . $tableName . " where item_id = " . $_item->getId();
+                $results = $connection->fetchAll($sql);
+                if(count($results) > 1 && strpos($results[0]['value'], 'option') !== false){
+                    //custom option product
+                    $dropdownNum = 0; $dropdownOptionIdArray = array();$dropdownOptionValueArray = array();
+                    foreach ($results as $result){
+                        if($result['code'] == 'option_ids'){
+                            $dropdownOptionIdArray = explode(',', $result['value']);
+                            $dropdownNum = count($dropdownOptionIdArray);
+                        }
+                    }
+                    foreach ($dropdownOptionIdArray as $dropdownOptionId){
+                        $tmp = "option_".$dropdownOptionId;
+                        $sql2 = "select * from " . $tableName . " where item_id = " . $_item->getId() . " and code = '" .$tmp ."'";
+                        $results = $connection->fetchAll($sql2);
+                        //id:$dropdownOptionId    value: $results[0]['value'];
+                        //find id title in "catalog_product_option_title"
+                        $sql3 = "select * from catalog_product_option_title where option_id = ".$dropdownOptionId;
+                        $results1 = $connection->fetchAll($sql3);
+                        //$results1['title']
+                        //find value in "catalog_product_option_type_title"
+                        $sql4 = "select * from catalog_product_option_type_title where option_type_id = ".$results[0]['value'];
+                        $results2 = $connection->fetchAll($sql4);
+                        //$results2['title']
+                        $dropdownOptionValueArray[$results1[0]['title']]=$results2[0]['title'];
+                    }
+//                    var_dump($dropdownOptionValueArray);
+                    echo "<p class='custom-options'></p>";
+                    echo "<ul>";
+                    foreach ($dropdownOptionValueArray as $index=>$val){
+                        echo "<li><strong>".$index."</strong>: ".$val."</li>";
+                    }
+                    echo "</ul>";
+                }
+            }catch (Exception $e){
+                //do nothing
+            }
+            ?>
+            <p></p>
+        </td>
+        <!-- td 1 end           -->
+            <td><?=$currencySymbol.$_item->getPriceInclTax()?></td>
+            <td><?=empty($_item->getCustomPrice())?'N/A': $currencySymbol.$_item->getCustomPrice()?></td>
+            <td><?=$_item->getQty()?></td>
+            <td>
+                <?php
+                    if(empty($_item->getCustomPrice())){
+                        echo $currencySymbol.number_format($_item->getPriceInclTax() * $_item->getQty(), 2);
+                    }else{
+                        echo $currencySymbol.number_format($_item->getCustomPrice() * $_item->getQty(), 2);
+                    }
+                ?>
+            </td>
+            <td>
+                <?php
+
+                    if(!empty($_item->getRecommend()))
+                        echo "recommend";
+                ?>
+            </td>
+            <td>
+                <input type="hidden" id="delItemId<?=$_item->getId()?>" name="itemId" value="<?=$_item->getId()?>">
+                <span class="removeItem" style="background-color: #e3e3e3; border: 1px solid black; cursor: pointer;" value="<?=$_item->getId()?>">Remove</span>
+            </td>
+        </tbody>
+    <?php endforeach; ?>
+        <tr>
+<!--            <td></td>-->
+            <td>Subtotal:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+<!--            <td>-->
+<!--                --><?php
+//                    $totalDiscount = 0;
+//                    foreach ($_items as $_item){
+//                        $totalDiscount+= ($_item->getBasePrice() - (empty($_item->getCustomPrice())?$_item->getBasePrice():$_item->getCustomPrice())) * $_item->getQty();
+//                    }
+//                    echo '$'.number_format($totalDiscount, 2);
+//                ?>
+<!--            </td>-->
+            <td>
+                <?php
+                $totalAmount = 0;
+                foreach ($_items as $_item){
+                    $totalAmount+=$_item->getQty() * (empty($_item->getCustomPrice())?$_item->getBasePrice():$_item->getCustomPrice());
+                }
+                echo $currencySymbol.number_format($totalAmount, 2);
+                ?>
+            </td>
+            <td></td>
+        </tr>
+</table>
+</div>
+
+<script>
+    require(['jquery'], function ($) {
+        $(".removeItem").click(function(){
+//            alert($(this).attr('value'));
+            $.ajax({
+                url: "<?php echo $rootPath.'admin/Customsearch/index/delete' ?>",
+                type: "POST",
+                data:{itemId: $(this).attr('value')},
+                dataType: "json",
+                success: function(data,status){
+//                    console.log(data['html']);
+                    console.log(data);
+                },
+                error: function(){
+                    alert(" Failed,Please try again.");
+                }
+            });
+            //ajax end
+            var thisPagePath = "<?=$thisPagePath?>";
+            window.location.href = thisPagePath+"&delitemid="+$(this).attr('value');
+        });
+
+        reload = function reloadThisPage() {
+            console.log($(this).attr("id"));
+            //send ajax to remove product from db
+            console.log($('#delItemId').val());
+            $.ajax({
+                url: "<?php echo $rootPath.'admin/Customsearch/index/delete' ?>",
+                type: "POST",
+                data:{itemId: $('#delItemId').val()},
+                dataType: "json",
+                success: function(data,status){
+//                    console.log(data['html']);
+                    console.log(data);
+                },
+                error: function(){
+                    alert(" Failed,Please try again.");
+                }
+            });
+            //ajax end
+            var thisPagePath = "<?=$thisPagePath?>";
+            window.location.href = thisPagePath+"&delitemid="+$('#delItemId').val();
+        }
+    });
+</script>

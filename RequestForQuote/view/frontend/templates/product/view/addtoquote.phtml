@@ -1,0 +1,55 @@
+<?php
+/** @var $block \agento\Catalog\Block\Product\View */
+?>
+<?php 
+$helper                  = $this->helper("Lof\RequestForQuote\Helper\Data"); 
+$enable = $helper->isEnabledQuote();
+$enable_addtoquote = $helper->getConfig('general/enable_addtoquote');
+$enable_addtoquote = ($enable_addtoquote !==null)?(int)$enable_addtoquote:1;
+$_product = $block->getProduct();
+if($enable && ($enable_addtoquote || ($_product->hasData('product_quote') && $_product->getData('product_quote')))) {
+?>
+<?php $buttonTitle = __('Add to Quote'); ?>
+<?php if ($enable_addtoquote || $_product->isSaleable()): ?>
+    <button type="submit"
+                    title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+                    class="action primary toquote"
+                    id="product-addtoquote-button">
+        <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+    </button>
+    <script>
+    require([
+        'jquery',
+        'mage/mage',
+        'Lof_RequestForQuote/js/catalog-add-to-quote'
+    ], function($) {
+        'use strict'
+        var addToQuote = false;
+        $('#product-addtoquote-button').click(function (e) {
+            addToQuote = $('#product_addtocart_form').attr('action').replace("checkout/cart/add", "quotation/cart/add");
+        });
+
+        $('#product_addtocart_form').mage('validation', {
+                radioCheckboxClosest: '.nested',
+                submitHandler: function (form) {
+                    if (addToQuote) {
+                        var widget = $(form).catalogAddToQuote({
+                            bindSubmit: false,
+                            quoteFormUrl: addToQuote
+                        });
+                        widget.catalogAddToQuote('submitForm', $(form));
+                        addToQuote = false;
+                    } else {
+                        
+                        var widget = $(form).catalogAddToCart({
+                            bindSubmit: false
+                        });
+                        widget.catalogAddToCart('submitForm', $(form));
+                    }
+                    return false;
+                }
+            });
+        });
+    </script>
+<?php endif; ?>
+<?php } ?>

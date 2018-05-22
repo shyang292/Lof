@@ -1,0 +1,343 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote */
+
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+$directoryHelper = $this->helper('Magento\Directory\Helper\Data');
+$_countries      = $directoryHelper->getCountryCollection()->toOptionArray(false);
+$urlHelper       = $this->helper('\Magento\Framework\Url\Helper\Data');
+$formUrl         = $block->getUrl('quotation/cart/saveQuote');
+$rfqHelper       = $this->helper('Lof\RequestForQuote\Helper\Data');
+$allow_countries           = $rfqHelper->getConfig("quote_sidebar/allow_countries");
+if($allow_countries == NULL) {
+    $allow_countries           = $rfqHelper->getSystemConfig("country/allow");
+}
+if($allow_countries != NULL) {
+    $allow_countries    = is_array($allow_countries)?$allow_countries:explode(",",$allow_countries);
+} else {
+    $allow_countries   = [];
+}
+
+$default_country    = $rfqHelper->getConfig("quote_sidebar/default_country");
+if($default_country == NULL) {
+    $default_country           = $rfqHelper->getSystemConfig("country/default");
+}
+$enable_firstname           = $rfqHelper->getConfig("quote_sidebar/enable_firstname");
+$enable_lastname           = $rfqHelper->getConfig("quote_sidebar/enable_lastname");
+$enable_phone           = $rfqHelper->getConfig("quote_sidebar/enable_phone");
+$enable_company           = $rfqHelper->getConfig("quote_sidebar/enable_company");
+$enable_street_address           = $rfqHelper->getConfig("quote_sidebar/enable_street_address");
+$enable_taxid           = $rfqHelper->getConfig("quote_sidebar/enable_taxid");
+$enable_country           = $rfqHelper->getConfig("quote_sidebar/enable_country");
+$enable_region           = $rfqHelper->getConfig("quote_sidebar/enable_region");
+$enable_city           = $rfqHelper->getConfig("quote_sidebar/enable_city");
+$enable_postcode           = $rfqHelper->getConfig("quote_sidebar/enable_postcode");
+$enable_extrafield  = $rfqHelper->getConfig("quote_sidebar/enable_extrafield");
+$enable_price             = $rfqHelper->getConfig("general/enable_price");
+//required config
+$require_firstname           = $rfqHelper->getConfig("quote_sidebar/require_firstname");
+$require_lastname           = $rfqHelper->getConfig("quote_sidebar/require_lastname");
+$require_phone           = $rfqHelper->getConfig("quote_sidebar/require_phone");
+$require_company           = $rfqHelper->getConfig("quote_sidebar/require_company");
+$require_street_address           = $rfqHelper->getConfig("quote_sidebar/require_street_address");
+$require_taxid           = $rfqHelper->getConfig("quote_sidebar/require_taxid");
+$require_country           = $rfqHelper->getConfig("quote_sidebar/require_country");
+$require_region           = $rfqHelper->getConfig("quote_sidebar/require_region");
+$require_city           = $rfqHelper->getConfig("quote_sidebar/require_city");
+$require_postcode           = $rfqHelper->getConfig("quote_sidebar/require_postcode");
+
+$require_field_str      = ' data-validate="{required:true}" aria-required="true"';
+
+$currentcySymbol = $rfqHelper->getCurrentCurrencySymbol();
+$_item           = $block->getItem();
+$customer = $this->getCustomer();
+$tax = 0;
+$grand_total = $this->getQuote()->getData('grand_total');
+$subtotal = $this->getQuote()->getData('subtotal');
+$subtotal_with_discount = $this->getQuote()->getData('subtotal_with_discount');
+$discount = $subtotal - $subtotal_with_discount;
+$discount = (float)$discount;
+$qty = $this->getQuote()->getData('items_qty');
+$logged_customer = $rfqHelper->getCustomer();
+if($logged_customer && count($logged_customer->getData()) > 0) {
+    if($logged_customer->getData('default_shipping')) {
+        $tax = ($grand_total - $subtotal_with_discount);
+    } else {
+        $tax = __('Complete address for tax');
+    }
+} else {
+    $tax = __('Sign in for taxes');
+}
+?>
+<?php if($enable_price) { ?>
+<div class="opc-block-summary">
+        <span  class="title"><?php echo __('Quote Summary');?></span>
+        <table class="data table table-totals">
+            <tbody>
+                <tr class="totals sub">
+                    <th  class="mark" scope="row"><?php echo __('Quote Subtotal');?></th>
+                    <td class="amount">
+                        <span class="price" data-th="Quote Subtotal"><?php echo $rfqHelper->formatPriceWithCurency( $subtotal ); ?></span>
+                    </td>
+                </tr>
+                <?php if($discount && ($discount > 0)) { ?>
+                <tr class="totals discount">
+                    <th class="mark" scope="row">
+                        <span class="title" ><?php echo __('Discount');?></span>
+                    </th>
+                    <td class="amount">
+                        <span class="price">-<?php echo $rfqHelper->formatPriceWithCurency($discount); ?></span>
+                    </td>
+                </tr>
+                <?php } ?>
+                <tr class="totals-tax">
+                    <th  class="mark" scope="row"><?php echo __('Tax');?></th>
+                    <td  class="amount" data-th="Tax">
+                 
+                            <span class="price" ><?php echo is_numeric($tax)?$rfqHelper->formatPriceWithCurency($tax):$tax; ?></span>
+                      
+                    </td>
+                </tr>
+              
+                <tr class="grand totals">
+                    <th class="mark" scope="row">
+                        <strong><?php echo __('Quote Total');?></strong>
+                    </th>
+                    <td  class="amount" data-th="Quote Total">
+                        <strong><span class="price"><?php echo $rfqHelper->formatPriceWithCurency($grand_total); ?></span></strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+<?php } ?>
+<form method="post" action="<?php echo $formUrl ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}' id="quote-form">
+    <div class="block customer-details" >
+        <div class="title" data-role="title"><?php echo __('Enter your details') ?></div>
+        <div class="content" data-role="content">
+            <div class="content-wrapper">
+                <fieldset class="fieldset">
+                    <div class="field required">
+                        <label class="label" for="customer-email">
+                            <span><?php echo __('Email Address') ?></span>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" type="email" name="username" data-validate="{required:true, 'validate-email':true}" id="customer-email" value="<?php echo $customer?$customer->getEmail():'' ?>" aria-required="true" <?php if ($customer) { ?>readonly<?php } ?>>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="customer-note">
+                            <span><?php echo __('Remarks') ?></span>
+                        </label>
+                        <div class="control">
+                            <textarea class="admin__control-textarea" cols="15" rows="5" name="customer_note" id="customer-note" aria-required="true"></textarea>
+                        </div>
+                    </div>
+
+                    <?php if(!$customer) { ?>
+                    <?php if($enable_firstname){ ?>
+                    <div class="field <?php if($require_firstname){ echo 'required';} ?>">
+                        <label class="label" for="first-name">
+                            <span><?php echo __('First Name') ?></span>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" name="first_name" type="text" id="first-name" value=""<?php if($require_firstname){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if($enable_lastname){ ?>
+                    <div class="field <?php if($require_lastname){ echo 'required'; } ?>">
+                        <label class="label" for="last-name">
+                            <span><?php echo __('Last Name') ?></span>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" name="last_name" type="text" id="last-name" value=""<?php if($require_lastname){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if($enable_company){ ?>
+                    <div class="field <?php if($require_company){ echo 'required'; } ?>">
+                        <label class="label" for="company-name">
+                            <span><?php echo __('Company') ?></span>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" name="company" type="text" id="company-name" value=""<?php if($require_company){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if($enable_phone){ ?>
+                    <div class="field <?php if($require_phone){ echo 'required'; }?>">
+                        <label class="label" for="telephone">
+                            <span><?php echo __('Phone') ?></span>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" name="telephone" type="tel" id="telephone" value=""<?php if($require_phone){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if($enable_taxid){ ?>
+                    <div class="field <?php if($require_taxid){ echo 'required'; }?>">
+                        <label class="label" for="tax_id">
+                            <span><?php echo __('Tax Id') ?></span>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" name="tax_id" type="text" id="tax_id" value=""<?php if($require_taxid){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if($enable_street_address){ ?>
+                    <div class="field <?php if($require_street_address){ echo 'required';} ?>">
+                        <label class="label" for="street_address">
+                            <span><?php echo __('Street Address') ?></span>
+                        </label>
+                        <div class="control">
+                           <input class="input-text" name="street" type="text" id="street" value="" <?php if($require_street_address){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php if($enable_country) { ?>
+                    <div class="field <?php if($require_country){ echo 'required';} ?>">
+                        <label class="label" for="country_id">
+                            <span><?php echo __('Country') ?></span>
+                        </label>
+                        <div class="control">
+                           <?php if (count($_countries) > 0) { ?>
+                            <select name="country_id" id="country_id" class="dropdown" onChange="getState(this.value);" <?php if($require_country){ echo $require_field_str;} ?>>
+                                <option value=""><?php echo __('-- Please Select --'); ?></option>
+                                <?php foreach($_countries as $_country) {  ?>
+                                <?php if(!$allow_countries || ($allow_countries && in_array($_country['value'], $allow_countries))){ ?>
+                                <?php 
+                                $selected = '';
+                                if($default_country && $default_country == $_country['value']) {
+                                    $selected = ' selected="selected"';
+                                }
+                                ?>
+                                <option value="<?php echo $_country['value']; ?>"<?php echo $selected; ?>><?php echo $_country['label']; ?></option>
+                                <?php } ?>
+                                <?php } ?>
+                            </select>
+                            <?php } else { ?>
+                            <input type="text" name="country_id" value="" id="country_id" class="input-text" <?php if($require_country){ echo $require_field_str;} ?>/>
+                            <?php } ?>
+                            <div class="formbuilder-loading" style="display: none"><?php echo __("Loading Region...");?></div>
+                        </div>
+                    </div>
+                    
+                    <?php } ?>
+                    
+                    <?php if($enable_city){ ?>
+                    <div class="field city <?php if($require_city){ echo 'required'; }?>">
+                        <label class="label" for="city">
+                            <span><?php echo $block->escapeHtml(__('City')); ?></span>
+                        </label>
+                        <div class="control">
+                           <input class="input-text" name="city" type="text" id="city" value="" <?php if($require_city){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php if($enable_region){ ?>
+                    <div class="field region <?php if($require_region){ echo 'required'; } ?>" id="regionField">
+                        <label class="label" for="region_id">
+                            <span><?php echo $block->escapeHtml(__('State/Province')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="region_id" id="region_id" class="input-text validate-state" value="" <?php if($require_region){ echo $require_field_str;} ?>/>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php if($enable_postcode){ ?>
+                    <div class="field postcode <?php if($require_postcode){ echo 'required'; } ?>">
+                        <label class="label" for="postcode">
+                            <span><?php echo $block->escapeHtml(__('Postal Code')); ?></span>
+                        </label>
+                        <div class="control">
+                           <input class="input-text" name="postcode" type="text" id="postcode" value="" <?php if($require_postcode){ echo $require_field_str;} ?>>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php
+                    $limit_questions = 20;
+                    for($i=1; $i<= $limit_questions; $i++){
+                        $question_name = "question_".$i;
+                        $question_name = trim($question_name);
+                        $question_label = $rfqHelper->getConfig("quote_sidebar/question_".$i);
+                        if($question_label) {
+                            $question_placeholder = $rfqHelper->getConfig("quote_sidebar/question_default_".$i);
+                            $required_field = $rfqHelper->getConfig("quote_sidebar/question_required_".$i);
+                            $required_field = ($required_field!==null)?(int)$required_field:0;
+                            ?>
+                            <div class="field <?php echo $question_name; ?>">
+                                <label class="label" for="<?php echo $question_name; ?>">
+                                    <span><?php echo $block->escapeHtml($question_label) ?></span>
+                                </label>
+                                <div class="control">
+                                    <input type="text"
+                                           id="<?php echo $question_name; ?>"
+                                           name="question[<?php echo $question_name; ?>][value]"
+                                           value=""
+                                           placeholder="<?php echo $question_placeholder; ?>"
+                                           title="<?= $block->escapeHtml($question_label) ?>"
+                                           class="input-text" <?php echo $required_field?'data-validate="{required:true}" aria-required="true"':''; ?>/>
+                                    <input type="hidden"
+                                           id="<?php echo $question_name; ?>"
+                                           name="question[<?php echo $question_name; ?>][label]"
+                                           value="<?= $block->escapeHtml($question_label) ?>"
+                                           class="input-text"/>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                    <?php if($enable_extrafield){ ?>
+                    <?php echo $this->getChildHtml("extra_field"); ?>
+                    <?php } ?>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $urlHelper->getEncodedUrl($formUrl); ?>">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <button type="submit" class="action primary">
+        <span><span><?php echo __('Submit Quote'); ?></span></span>
+    </button>
+</form>
+<?php if($enable_country == 1 && $enable_region == 1) { ?>
+    <script type="text/javascript">
+        function getState(val) {
+            ajaxurl  =  '<?php echo $this->getUrl('quotation/quote/state'); ?>';
+            jQuery('.requestforquote-loading').addClass('ajax-loading');
+            jQuery('.requestforquote-loading').show(); 
+            jQuery.ajax({
+                type: "POST",
+                url: ajaxurl,
+                dataType: 'json',
+                data:'country_id='+val+'&field_name=region_id',
+                success: function(data){
+                    jQuery("#regionField").html(data);
+                    jQuery('.requestforquote-loading').removeClass('ajax-loading');
+                    jQuery('.requestforquote-loading').hide();
+                }
+            });
+        }
+    </script>   
+    <?php } else { ?>
+    <script type="text/javascript">
+        function getState(val) {
+            return;
+        }
+    </script>
+    <?php } ?>
+<div id="rfq-loader" data-role="checkout-loader" class="loading-mask" data-mage-init='{"checkoutLoader": {}}'>
+    <div class="loader">
+        <img src="<?php echo $block->getViewFileUrl('images/loader-1.gif'); ?>"
+        alt="<?php echo __('Loading...'); ?>"
+        style="position: absolute;">
+    </div>
+</div>

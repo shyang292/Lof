@@ -1,0 +1,111 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php /** @var \Lof\RequestForQuote\Block\Adminhtml\Quote\View\Items\Renderer\DefaultRenderer $block */ ?>
+<?php $_item = $block->getItem(); ?>
+<?php $store = $_item->getStore(); ?>
+<?php $block->setPriceDataObject($_item); ?>
+
+<?php
+$currencySymbol = $block->getCurrencySymbol();
+
+$options = $block->getSelectedOptionsOfQuoteItem($_item);
+?>
+<tr class="quote-item-<?php echo $_item->getId(); ?>">
+	<td class="quote-item-row-tier col-image ">
+		<img src="<?php echo $block->getProductImage($store, $_item->getProduct()->getId()) ?>" width="165"/>
+	</td>
+	<?php $i = 0;
+	$columns = $block->getColumns();
+	$lastItemNumber = count($columns) ?>
+	<?php foreach ($columns as $columnName => $columnClass):?>
+		<?php $i++; ?>
+		<?php 
+		$custom_price = $_item->getCustomPrice();
+		$base_price = $_item->getOriginalPrice();
+		if((float)$base_price <= 0) {
+			$base_price = $_item->getBasePrice();
+		}
+		?>
+		<?php if ($columnName == 'product') { ?>
+		<td class="quote-item-row-tier <?php echo $columnClass?><?php echo ($i === $lastItemNumber ? ' last' : '')?>">
+			<?php echo $block->getColumnHtml($_item, $columnName) ?>
+			<?php 
+			if(!empty($options))
+			{
+				echo '<p class="custom-options"><ul>';
+				foreach ($options as $option)
+			    {
+			        $optionTitle = $option['label'];
+			        $optionId = $option['option_id'];
+			        $optionType = $option['option_type'];
+			        $optionValue = $option['print_value'];
+			        $optionCustomView = $option['custom_view'];
+			        echo $optionCustomView?('<li>'.$optionCustomView.'</li>'):('<li><strong>'.$optionTitle."</strong>: ".$optionValue.'</li>');
+			    }
+			    echo '</ul></p>';
+			}
+			?>
+			<?php if ($_item->getDescription()) { ?>
+			<p style="margin-top: 10px;">
+				<b><?php echo __('Note: '); ?></b>
+				<?php echo strip_tags($_item->getDescription()) ?>
+			</p>
+			<?php } ?>
+		</td>
+		<?php } ?>
+	<?php endforeach; ?>
+<!--	<td class="quote-item-row-tier item-cost-price---><?php //echo $i; ?><!--">-->
+<!--		--><?php //
+//		if($cost_price = $_item->getBaseCost()){
+//			echo $currencySymbol.$cost_price;
+//		} else {
+//			echo __("N/A");
+//		}
+//		?>
+<!--		-->
+<!--	</td>-->
+	<td class="quote-item-row-tier item-base-price-<?php echo $i; ?>">
+		<?php
+            $list_price = $_item->getPriceInclTax();
+            if($list_price){
+                echo $currencySymbol.number_format($list_price, 2);
+            } else {
+                echo __("N/A");
+            }
+
+		?>
+		
+	</td>
+	<td class="quote-item-row-tier col-customprice ">
+		<input name="quote[<?php echo $_item->getId() ?>][customprice]" type="text" class="input-text admin__control-text" value="<?php echo $custom_price; ?>"/>
+	</td>
+	<td class="quote-item-row-tier col-qty ">
+		<input name="quote[<?php echo $_item->getId() ?>][qty]" type="text" class="input-text admin__control-text" value="<?php echo $_item->getQty(); ?>"/>
+	</td>
+	<td class="quote-item-row-tier col-discount ">     
+        <span class="price">
+            <?php
+                echo $currencySymbol.number_format((empty($_item->getCustomPrice())?0:($_item->getBasePrice() - $_item->getCustomPrice()))*$_item->getQty(), 2);
+//                echo $currencySymbol.$_item->getDiscountAmount();
+            ?>
+        </span>
+    </td>
+    <td class="quote-item-row-tier col-total ">     
+        <span class="price">
+            <?php
+                echo number_format((empty($_item->getCustomPrice())?$_item->getBasePrice():$_item->getCustomPrice()) * $_item->getQty(), 2);
+//                echo $currencySymbol.$_item->getRowTotal();
+            ?>
+        </span>
+    </td>
+<!--    <td class="quote-item-row-tier col-gpmargin ">     -->
+<!--        <span class="price">--><?php
+//         	$base_price = (float)$base_price;
+//	        if($base_price && $base_price > 0) {
+//	         $gp_margin = round((($custom_price - $base_price)/$base_price)*100);
+//	         echo $gp_margin."%";
+//	     	}
+//	    ?><!--</span>-->
+<!--    </td>-->
+</tr>

@@ -1,0 +1,57 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Your Quote Request has been cancelled"}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order.getEmailCustomerNote()":"Email Order Note",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$quote area=\"frontend\"":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"var shipping_msg":"Shipping message"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+	<tr class="email-intro">
+		<td>
+			{{depend quote.getCustomerName()}}
+			<p class="greeting">{{trans "%customer_name," customer_name=$quote.getCustomerName()}}</p>
+			{{/depend}}
+			<p>
+			{{trans "Your Quote Request has been cancelled."}}
+			</p>
+			{{depend expired_at}}
+				{{trans "Expired at: "}}{{var expired_at}}
+			{{/depend}}
+		</td>
+	</tr>
+	<tr class="email-summary">
+		<td>
+			<h1>{{trans 'Quote Request ' }}<span class="no-link">#{{var increment_id}}</span></h1>
+			<p>{{trans 'Placed on ' }}<span class="no-link">{{var created_at}}</span></p>
+		</td>
+	</tr>
+	<tr class="email-information">
+		<td>
+			{{depend quote.getCustomerNote()}}
+			<table class="message-info">
+				<tr>
+					<td>
+						{{var quote.getCustomerNote()|escape|nl2br}}
+					</td>
+				</tr>
+			</table>
+			{{/depend}}
+			{{layout handle="quotation_email_order_items" order=$quote area="frontend"}}
+		</td>
+	</tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

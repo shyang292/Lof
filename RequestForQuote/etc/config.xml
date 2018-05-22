@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_RequestForQuote
+ * @copyright  Copyright (c) 2017 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<requestforquote>
+			<general>
+				<enable>1</enable>
+				<disable_addtocart>1</disable_addtocart>
+				<enable_addtoquote>1</enable_addtoquote>
+				<digits_number>10000</digits_number>
+				<sender_email_identity>general</sender_email_identity>
+				<customer_groups>1,2,3,4,5,6,7,8,9,10</customer_groups>
+				<quote_id_prefix></quote_id_prefix>
+				<enable_price>1</enable_price>
+				<enable_edit_price>1</enable_edit_price>
+				<disable_shoppingcart>0</disable_shoppingcart>
+				<disable_qty>0</disable_qty>
+			</general>
+			<sidebar>
+				<display>1</display>
+				<count>5</count>
+			</sidebar>
+			<email_templates>
+				<new_quote>rfq_new_quote</new_quote>
+				<accept_quote>rfq_accept_quote</accept_quote>
+				<quote_cancelled>rfq_quote_cancelled</quote_cancelled>
+				<quote_reviewed>rfq_quote_reviewed</quote_reviewed>
+				<quote_expired>rfq_quote_expired</quote_expired>
+				<quote_change_expired_date>rfq_quote_change_expired_date</quote_change_expired_date>
+			</email_templates>
+			<quote_item>
+				<expiry_day>10</expiry_day>
+			</quote_item>
+			<quote_sidebar>
+				<enable_firstname>0</enable_firstname>
+				<require_firstname>0</require_firstname>
+				<enable_lastname>0</enable_lastname>
+				<require_lastname>0</require_lastname>
+				<enable_phone>0</enable_phone>
+				<require_phone>0</require_phone>
+				<enable_company>0</enable_company>
+				<require_company>0</require_company>
+				<enable_street_address>0</enable_street_address>
+				<require_street_address>0</require_street_address>
+				<enable_country>0</enable_country>
+				<require_country>0</require_country>
+				<enable_region>0</enable_region>
+				<require_region>0</require_region>
+				<enable_city>0</enable_city>
+				<require_city>0</require_city>
+				<enable_postcode>0</enable_postcode>
+				<require_postcode>0</require_postcode>
+				<enable_taxid>0</enable_taxid>
+				<require_taxid>0</require_taxid>
+				<enable_extrafield>0</enable_extrafield>
+			</quote_sidebar>
+			<quote_admin_setting>
+				<enable_quote_totals>1</enable_quote_totals>
+				<enable_admin_note>1</enable_admin_note>
+				<enable_terms>1</enable_terms>
+				<enable_wtexpect>1</enable_wtexpect>
+				<enable_break_line>1</enable_break_line>
+			</quote_admin_setting>
+		</requestforquote>
+	</default>
+</config>

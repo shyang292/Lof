@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_RequestForQuote
+ * @copyright  Copyright (c) 2017 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="quotation/cart/add">
+        <section name="quote"/>
+        <section name="cart"/>
+    </action>
+    <action name="quotation/cart/delete">
+        <section name="quote"/>
+        <section name="cart"/>
+    </action>
+    <action name="quotation/cart/success">
+        <section name="quote"/>
+        <section name="cart"/>
+    </action>
+    <action name="quotation/cart/savequote">
+        <section name="quote"/>
+        <section name="cart"/>
+    </action>
+    <action name="quotation/cart/updatepost">
+        <section name="quote"/>
+        <section name="cart"/>
+    </action>
+    <action name="quotation/cart/newquote">
+        <section name="quote"/>
+        <section name="cart"/>
+    </action>
+    <action name="quotation/quote/move">
+        <section name="quote"/>
+        <section name="cart"/>
+    </action>
+</config>

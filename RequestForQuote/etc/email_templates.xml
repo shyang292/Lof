@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_RequestForQuote
+ * @copyright  Copyright (c) 2017 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="rfq_new_quote" label="New Quote" file="quote_new.html" type="html" module="Lof_RequestForQuote" area="frontend"/>
+    <template id="rfq_accept_quote" label="Accept Quote" file="quote_accept.html" type="html" module="Lof_RequestForQuote" area="frontend"/>
+    <template id="rfq_quote_cancelled" label="Quote Cancelled" file="quote_cancelled.html" type="html" module="Lof_RequestForQuote" area="frontend"/>
+    <template id="rfq_quote_reviewed" label="Quote Reviewed" file="quote_reviewed.html" type="html" module="Lof_RequestForQuote" area="frontend"/>
+    <template id="rfq_quote_expired" label="Quote Expired" file="quote_expired.html" type="html" module="Lof_RequestForQuote" area="frontend"/>
+    <template id="rfq_quote_change_expired_date" label="Change Expired Date" file="change_expired_date.html" type="html" module="Lof_RequestForQuote" area="frontend"/>
+</config>

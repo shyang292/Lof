@@ -1,0 +1,31 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote\Info */
+?>
+<?php $_quote = $block->getQuote() ?>
+<?php $_giftMessage; ?>
+<div class="table-wrapper order-items">
+    <table class="data table table-order-items" id="my-orders-table" summary="<?php echo __('Items Ordered') ?>">
+        <caption class="table-caption"><?php echo __('Items Ordered') ?></caption>
+        <thead>
+            <tr>
+                <th class="col name"><?php echo __('Product Name') ?></th>
+                <th class="col sku"><?php echo __('SKU') ?></th>
+                <th class="col price"><?php echo __('Price') ?></th>
+                <th class="col qty"><?php echo __('Qty') ?></th>
+                <th class="col subtotal"><?php echo __('Subtotal') ?></th>
+            </tr>
+        </thead>
+        <?php $_items = $_quote->getItemsCollection(); ?>
+        <?php $_index = 0; ?>
+        <?php $_count = $_items->count(); ?>
+        <?php $_giftMessage = ''?>
+        <?php foreach ($_items as $_item): ?>
+            <?php if ($_item->getParentItem()) {
+                continue;
+            } ?>
+            <tbody>
+                <?php echo $block->getItemHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="actions">
+    <?php  $_quote = $block->getRfqQuote() ?>
+    <a style="float: right;" class="action print"
+       href="<?php /* @escapeNotVerified */ echo $block->getPrintUrl($_quote) ?>"
+       onclick="this.target='_blank';">
+        <span><?php /* @escapeNotVerified */ echo __('Print Quote') ?></span>
+    </a>
+</div>

@@ -1,0 +1,297 @@
+"Add New Quote","Add New Quote"
+"Manage Quotations","Manage Quotations"
+"Manage Custom Fields","Manage Custom Fields"
+"Manage Quotation Rules","Manage Quotation Rules"
+Settings,Settings
+Guide,Guide
+"Get Support","Get Support"
+"Submit Quote","Submit Quote"
+"Are you sure you want to cancel this order?","Are you sure you want to cancel this order?"
+Cancel,Cancel
+"Create New Quote for %1 in %2","Create New Quote for %1 in %2"
+"Create New Quote in %1","Create New Quote in %1"
+"Create New Quote for %1","Create New Quote for %1"
+"Create New Quote for New Customer","Create New Quote for New Customer"
+"You created the order.","You created the order."
+"Order saving error: %1","Order saving error: %1"
+Delete,Delete
+"Are you sure you want to send a confirmation email to customer?","Are you sure you want to send a confirmation email to customer?"
+"Send Email","Send Email"
+"Create Order","Create Order"
+"Save Quote","Save Quote"
+"Save Quote & Send Update Email","Save Quote & Send Update Email"
+"Send an email contains a purchase link to customer email. Customer click and redirect to site.","Send an email contains a purchase link to customer email. Customer click and redirect to site."
+"Accept Request","Accept Request"
+"Order # %1 %2 | %3","Order # %1 %2 | %3"
+"This order contains (%1) items and therefore cannot be edited through the admin interface. If you wish to continue editing, the (%2) items will be removed,  the order will be canceled and a new order will be placed.","This order contains (%1) items and therefore cannot be edited through the admin interface. If you wish to continue editing, the (%2) items will be removed,  the order will be canceled and a new order will be placed."
+"Are you sure? This order will be canceled and a new one will be created instead.","Are you sure? This order will be canceled and a new one will be created instead."
+"Please correct the parent block for this block.","Please correct the parent block for this block."
+" [deleted]"," [deleted]"
+Edit,Edit
+"Invalid parent block for this block","Invalid parent block for this block"
+Information,Information
+"Order Information","Order Information"
+"Form Information","Form Information"
+"Invalid method: %1","Invalid method: %1"
+"My Orders","My Orders"
+"<img src=""%1"" alt=""rfq-icon""/>","<img src=""%1"" alt=""rfq-icon""/>"
+"You sent the confirmation email.","You sent the confirmation email."
+"Something went wrong while processing your quote. Please try again later.","Something went wrong while processing your quote. Please try again later."
+Quotations,Quotations
+"New Quote","New Quote"
+"You created the quote.","You created the quote."
+"Quote saving error: %1","Quote saving error: %1"
+"We can't find a quote to delete.","We can't find a quote to delete."
+"You deleted the quote.","You deleted the quote."
+"This quote no longer exists.","This quote no longer exists."
+RequestForQuote,RequestForQuote
+Quote,Quote
+"Edit Quote","Edit Quote"
+"You saved the quote","You saved the quote"
+"We can't find a quote.","We can't find a quote."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Quantity was recalculated from %1 to %2","Quantity was recalculated from %1 to %2"
+"We adjusted product quantities to fit the required increments.","We adjusted product quantities to fit the required increments."
+"We can't find the quote.","We can't find the quote."
+"You added %1 to your quote.","You added %1 to your quote."
+"We can't add this item to your quote.","We can't add this item to your quote."
+"Out of stock","Out of stock"
+"We can't remove the item.","We can't remove the item."
+"Please enter your email.","Please enter your email."
+"Success Page","Success Page"
+"We can't update the shopping cart.","We can't update the shopping cart."
+"We can't mote to the shopping cart.","We can't mote to the shopping cart."
+"Page not found.","Page not found."
+"My Quotes","My Quotes"
+"Quote # %1","Quote # %1"
+"We can't send the email quote right now.","We can't send the email quote right now."
+"The product does not exist.","The product does not exist."
+"%1 (Default)","%1 (Default)"
+Pending,Pending
+Ordered,Ordered
+Cancelled,Cancelled
+Reviewed,Reviewed
+Expired,Expired
+View,View
+"Address Information","Address Information"
+"Payment &amp; Shipping Information","Payment &amp; Shipping Information"
+"Order Total","Order Total"
+"Order History","Order History"
+"Order Currency:","Order Currency:"
+Email,Email
+Remarks,Remarks
+Product,Product
+Price,Price
+Qty,Qty
+Subtotal,Subtotal
+Discount,Discount
+"Row Subtotal","Row Subtotal"
+Action,Action
+"No ordered items","No ordered items"
+"Update Items and Quantities","Update Items and Quantities"
+"Total %1 product(s)","Total %1 product(s)"
+Subtotal:,Subtotal:
+SKU,SKU
+"Tier Pricing","Tier Pricing"
+"Custom Price","Custom Price"
+Apply,Apply
+"Please select","Please select"
+Remove,Remove
+"Quote & Account Information","Quote & Account Information"
+"Quote Date","Quote Date"
+"Quote Date (%1)","Quote Date (%1)"
+"Quote Status","Quote Status"
+"Purchased From","Purchased From"
+"Link to the New Order","Link to the New Order"
+"Link to the Previous Order","Link to the Previous Order"
+"Placed from IP","Placed from IP"
+"Expiry Date","Expiry Date"
+"Select Date","Select Date"
+"Account Information","Account Information"
+"Customer Name","Customer Name"
+"Customer Group","Customer Group"
+Company,Company
+Telephone,Telephone
+Address,Address
+"Tax Code","Tax Code"
+"Edit Info","Edit Info"
+"Get Customer Address","Get Customer Address"
+Loading...,Loading...
+"Edit Information","Edit Information"
+"First Name","First Name"
+"Last Name","Last Name"
+Street,Street
+Region,Region
+"Region Id","Region Id"
+"Post Code","Post Code"
+Country,Country
+"Reset Default","Reset Default"
+"Close Form","Close Form"
+"Comment: ","Comment: "
+"Quote Totals","Quote Totals"
+"Quote Subtotal","Quote Subtotal"
+"Coupon Code","Coupon Code"
+Tax,Tax
+"Shipping Fee","Shipping Fee"
+"Shipping Note","Shipping Note"
+"Quote Total","Quote Total"
+"Have a error when get customer address info.","Have a error when get customer address info."
+Image,Image
+"Note: ","Note: "
+Items,Items
+"You have added <a href=""%1"" title=""%2"">%3</a> to your quote.","You have added <a href=""%1"" title=""%2"">%3</a> to your quote."
+"Submit Your Quote","Submit Your Quote"
+Name,Name
+"Gift Message","Gift Message"
+From:,From:
+To:,To:
+Message:,Message:
+"Sub Total","Sub Total"
+"Grand Total","Grand Total"
+"Compare Products","Compare Products"
+"Print This Page","Print This Page"
+"Remove Product","Remove Product"
+"Add to Cart","Add to Cart"
+"Add to Quote","Add to Quote"
+"In stock","In stock"
+"Add to Wish List","Add to Wish List"
+"You have no items to compare.","You have no items to compare."
+"Remove This Item","Remove This Item"
+Compare,Compare
+"Clear All","Clear All"
+"We can't find products matching the selection.","We can't find products matching the selection."
+"Learn More","Learn More"
+"Shopping Cart Items","Shopping Cart Items"
+Item,Item
+"Continue Shopping","Continue Shopping"
+"Clear Quote","Clear Quote"
+"Update Quote","Update Quote"
+"Move to Shopping Cart","Move to Shopping Cart"
+Quotes,Quotes
+"Quote #","Quote #"
+Date,Date
+Status,Status
+Actions,Actions
+"View Quote","View Quote"
+"Delete Quote","Delete Quote"
+"There is no quote yet.","There is no quote yet."
+"Add Note","Add Note"
+"See price before order confirmation.","See price before order confirmation."
+"What's this?","What's this?"
+"Remove item","Remove item"
+"You have no items in your quote.","You have no items in your quote."
+"Click <a href=""%1"">here</a> to continue shopping.","Click <a href=""%1"">here</a> to continue shopping."
+"Complete address for tax","Complete address for tax"
+"Sign in for taxes","Sign in for taxes"
+"Quote Summary","Quote Summary"
+"* Required Fields","* Required Fields"
+"Enter your details","Enter your details"
+"Email Address","Email Address"
+Phone,Phone
+"Tax Id","Tax Id"
+"Thank you for your interest!","Thank you for your interest!"
+"Your Quote Request # is: <a href=""%1"">%2</a>.","Your Quote Request # is: <a href=""%1"">%2</a>."
+"Your Quote Request # is: %1.","Your Quote Request # is: %1."
+"We'll email you a Quote Request confirmation email with a link to track progress.","We'll email you a Quote Request confirmation email with a link to track progress."
+"Print Quote","Print Quote"
+"<span class=""label"">Quote Date:</span> %1","<span class=""label"">Quote Date:</span> %1"
+"Product Name: ","Product Name: "
+"Items Ordered","Items Ordered"
+"Product Name","Product Name"
+"Expire at: %1","Expire at: %1"
+"%store_name: New Quote Request","%store_name: New Quote Request"
+"%customer_name,","%customer_name,"
+"The expire date has been changed to ","The expire date has been changed to "
+"Quote Request ","Quote Request "
+"Placed on ","Placed on "
+"Your Quote Request has been reviewed and accepted. Please click","Your Quote Request has been reviewed and accepted. Please click"
+here,here
+"to place order.","to place order."
+"Expired at: ","Expired at: "
+"Your Quote Request has been cancelled","Your Quote Request has been cancelled"
+"Your Quote Request has been cancelled.","Your Quote Request has been cancelled."
+"Your Quote Request has been expired","Your Quote Request has been expired"
+"Your Quote Request has been expired.","Your Quote Request has been expired."
+"Thank you for your quote request from %store_name.","Thank you for your quote request from %store_name."
+"You can check the status of your quote request by <a href=""%account_url"">logging into your account</a>.","You can check the status of your quote request by <a href=""%account_url"">logging into your account</a>."
+"Your quotation details are below. Thank you again for your interest.","Your quotation details are below. Thank you again for your interest."
+"If you have questions about your quote request, you can email us at <a href=""mailto:%store_email"">%store_email</a>","If you have questions about your quote request, you can email us at <a href=""mailto:%store_email"">%store_email</a>"
+"or call us at <a href=""tel:%store_phone"">%store_phone</a>","or call us at <a href=""tel:%store_phone"">%store_phone</a>"
+"Our hours are <span class=""no-link"">%store_hours</span>.","Our hours are <span class=""no-link"">%store_hours</span>."
+"Your Quote Request has been reviewed","Your Quote Request has been reviewed"
+"Your Quote Request has been reviewed.","Your Quote Request has been reviewed."
+Password,Password
+"You already have an account with us. Sign in or continue as guest.","You already have an account with us. Sign in or continue as guest."
+Login,Login
+"Forgot Your Password?","Forgot Your Password?"
+"My Cart","My Cart"
+Close,Close
+item,item
+items,items
+"View Quote Request","View Quote Request"
+"Recently added item(s)","Recently added item(s)"
+"View and edit quote request","View and edit quote request"
+"See Details","See Details"
+"Options Details","Options Details"
+Update,Update
+"Cart Subtotal","Cart Subtotal"
+"Shipping Address","Shipping Address"
+"New Address","New Address"
+"Shipping Methods","Shipping Methods"
+"Select Method","Select Method"
+"Method Title","Method Title"
+"Carrier Title","Carrier Title"
+Next,Next
+"Sorry, no quotes are available for this order at this time","Sorry, no quotes are available for this order at this time"
+Adding...,Adding...
+Added,Added
+"<a href=""http://landofcoder.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">landofcoder.com</a>","<a href=""http://landofcoder.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">landofcoder.com</a>"
+"Request for Quote","Request for Quote"
+"General Setting","General Setting"
+Enabled,Enabled
+Icon,Icon
+"Email Sender","Email Sender"
+"Send Quote Email Copy to","Send Quote Email Copy to"
+Comma-separated.,Comma-separated.
+"Send Quote e-mail notification to","Send Quote e-mail notification to"
+"Enabled Quote On Categories","Enabled Quote On Categories"
+"Enabled/Disable the add to quote button on categories page.","Enabled/Disable the add to quote button on categories page."
+"Enabled Quote On Search Result","Enabled Quote On Search Result"
+"Enabled/Disable the add to quote button on search result page.","Enabled/Disable the add to quote button on search result page."
+"Enabled Quote On Product","Enabled Quote On Product"
+"Enabled/Disable the add to quote button on product detail page.","Enabled/Disable the add to quote button on product detail page."
+"Customer Groups","Customer Groups"
+"Just show add to quote for special customer groups.","Just show add to quote for special customer groups."
+"Show quote for special products","Show quote for special products"
+"Show quote for special categories","Show quote for special categories"
+"Enabled Price On Quote Page","Enabled Price On Quote Page"
+"Enabled Edit Price On Quote Page","Enabled Edit Price On Quote Page"
+"Quote Sidebar","Quote Sidebar"
+"Display Shopping Cart Sidebar","Display Shopping Cart Sidebar"
+"Maximum Display Recently Added Item(s)","Maximum Display Recently Added Item(s)"
+"Email Templates","Email Templates"
+"Accept Quote","Accept Quote"
+"Quote Cancelled","Quote Cancelled"
+"Quote Reviewed","Quote Reviewed"
+"Quote Expired","Quote Expired"
+"Change Expired Date","Change Expired Date"
+"Quote Item Setting","Quote Item Setting"
+"Limit Useage the quote item","Limit Useage the quote item"
+"Limit useage the quote to generate order on frontend. Default: 100","Limit useage the quote to generate order on frontend. Default: 100"
+"Set Expiry days","Set Expiry days"
+"Set number days after the quote created date. Default: 10","Set number days after the quote created date. Default: 10"
+"Quote Sidebar Setting","Quote Sidebar Setting"
+"Enabled First Name","Enabled First Name"
+"Enabled Last Name","Enabled Last Name"
+"Enabled Phone Number","Enabled Phone Number"
+"Enabled Company","Enabled Company"
+"Enabled Address","Enabled Address"
+"Enabled Tax Id","Enabled Tax Id"
+order-header,order-header
+Description,Description
+"Store View","Store View"
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+ID,ID
+Created,Created
+"Your quote request has been received!","Your quote request has been received!"

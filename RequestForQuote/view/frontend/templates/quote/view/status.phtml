@@ -1,0 +1,9 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote\Info */
+$helper = $this->helper('\Lof\RequestForQuote\Helper\Data');
+$quote  = $block->getRfqQuote();
+?>
+<span class="order-status quote-status-<?php echo $block->getRfqQuote()->getStatus() ?>"><?php /* @escapeNotVerified */ echo $block->getRfqQuote()->getStatusLabel() ?></span>
+<?php if($quote->getStatus() != \Lof\RequestForQuote\Model\Quote::STATE_EXPIRED) { ?>
+	<span class="quote-expiry"><?php echo __('Expire at: %1', $helper->formatDate($quote->getExpiry(), \IntlDateFormatter::SHORT)); ?></span>
+<?php } ?>

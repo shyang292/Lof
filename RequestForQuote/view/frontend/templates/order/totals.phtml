@@ -1,0 +1,61 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+ 
+$_item = $block->getOrder();
+$grand_total = $_item->getData('grand_total');
+$subtotal = $_item->getData('subtotal');
+$subtotal_with_discount = $_item->getData('subtotal_with_discount');
+$discount = $subtotal - $subtotal_with_discount;
+$qty = $_item->getData('items_qty');
+$tax = ($grand_total - $subtotal_with_discount);
+$rfqHelper                = $this->helper('Lof\RequestForQuote\Helper\Data');
+$enable_price             = $rfqHelper->getConfig("general/enable_price");
+$currentcySymbol          = $rfqHelper->getCurrentCurrencySymbol();
+if($enable_price) {
+?>
+
+<tr class="subtotal">
+    <th colspan="2" scope="row">
+        <?php echo __('Sub Total');?>
+    </th>
+    <td  data-th="<?php echo __('Sub Total');?>">
+        <?php /* @escapeNotVerified */ echo $currentcySymbol . $subtotal; ?>
+    </td>
+</tr>
+<?php if($subtotal != $subtotal_with_discount) { ?>
+<tr class="discount">
+    <th colspan="2" scope="row">
+        <?php echo __('Discount');?>
+    </th>
+    <td  data-th="<?php echo __('Discount');?>">
+        <?php /* @escapeNotVerified */ echo $currentcySymbol . $discount; ?>
+    </td>
+</tr>
+<?php } ?>
+<tr class="tax">
+    <th colspan="2" scope="row">
+        <?php echo __('Tax');?>
+    </th>
+    <td  data-th="<?php echo __('Tax');?>">
+        <?php /* @escapeNotVerified */ echo $currentcySymbol . $tax; ?>
+    </td>
+</tr>
+<tr class="tax">
+    <th colspan="2" scope="row">
+        <?php echo __('Grand Total');?>
+    </th>
+    <td  data-th="<?php echo __('Grand Total');?>">
+        <?php /* @escapeNotVerified */ echo $currentcySymbol . $grand_total; ?>
+    </td>
+</tr>
+<?php } ?>

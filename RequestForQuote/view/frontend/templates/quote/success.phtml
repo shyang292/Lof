@@ -1,0 +1,24 @@
+<?php
+$quote = $block->getQuote();
+?>
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote\Success */
+?>
+
+
+<div class="checkout-success">
+    <p><strong><?php echo __('Thank you for your interest!'); ?></strong></p>
+    <?php if ($block->isLoggedIn()) { ?>
+    <p><?php echo __('Your Quote Request # is: <a href="%1">%2</a>.', $block->getViewUrl($quote), $quote->getIncrementId()); ?></p>
+    <?php } else { ?>
+    <p><?php echo __('Your Quote Request # is: %1.', $quote->getIncrementId()); ?></p>
+    <?php } ?>
+    <p><?php echo __('We\'ll email you a Quote Request confirmation email with a link to track progress.'); ?>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action primary continue" href="<?php /* @escapeNotVerified */ echo $block->getUrl() ?>">
+                    <span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span>
+                </a>
+            </div>
+        </div>
+    </div>

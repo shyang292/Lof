@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<<<<<<< HEAD
+    <head>
+        <link src="Lof_RequestForQuote::js/print.js"/>
+    </head>
+    <body>
+        <!--<attribute name="onload" value="PrintElem('div1')"/>-->
+        <referenceContainer name="content">
+            <!--<block class="Magento\Backend\Block\Template" template="Lof_RequestForQuote::quote/printquote.phtml"/>-->
+            <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Printquote" template="Lof_RequestForQuote::quote/printquote.phtml"/>
+=======
+
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" template="Lof_RequestForQuote::quote/printquote.phtml"/>
+>>>>>>> d71a872ac3998594146475285259015d253e15bc
+        </referenceContainer>
+    </body>
+</page>

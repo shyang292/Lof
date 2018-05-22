@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php 
+$rfqHelper       = $this->helper('Lof\RequestForQuote\Helper\Data');
+$enable_price             = $rfqHelper->getConfig("general/enable_price");
+?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_order): ?>
+    <?php $_items = $_order->getAllItems(); ?>
+    <table class="email-items">
+        <thead>
+            <tr>
+                <th class="item-info">
+                    <?= /* @escapeNotVerified */  __('Name'); ?>
+                </th>
+                <th class="item-info">
+                    <?= /* @escapeNotVerified */  __('SKU'); ?>
+                </th>
+                <th class="item-qty">
+                    <?= /* @escapeNotVerified */  __('Qty'); ?>
+                </th>
+                <?php if($enable_price) { ?>
+                <th class="item-price">
+                    <?= /* @escapeNotVerified */  __('Price'); ?>
+                </th>
+                <?php } ?>
+            </tr>
+        </thead>
+        <?php foreach ($_items as $_item): ?>
+            <?php
+            if ($_item->getParentItem()) {
+                continue;
+            }
+            ?>
+            <tbody>
+                <?= $block->getItemHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+        <tfoot class="order-totals">
+            <?php if($enable_price) { ?>
+            <?= $block->getChildHtml('order_totals') ?>
+            <?php } ?>
+        </tfoot>
+    </table>
+<?php endif; ?>
